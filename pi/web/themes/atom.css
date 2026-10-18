@@ -1,0 +1,724 @@
+/* Design "Abschuss" – Kalter-Krieg-Startkonsole: olivgruenes Stahlgehaeuse, roter Pilzknopf unter Schutzhaube,
+   Gelb-Schwarz-Warnstreifen, Schluesselschalter, Rundumleuchte. Alles unter body.thema-atom, Keyframes atom-*. */
+body.thema-atom {
+  --at-od: #535137; --at-od-hell: #6a6847; --at-od-dunkel: #3b3a27; --at-od-tief: #23231a;
+  --at-platte: #1b1c18; --at-platte2: #121310;
+  --at-gelb: #f2b50c; --at-gelb-hell: #ffd23d; --at-schwarz: #141413;
+  --at-rot: #d0121b; --at-rot-hell: #ff3b30; --at-bern: #ffb21e; --at-gruen: #4dff7c;
+  --at-farbe: #ebe6cf; --at-vfd: #74ffd6;
+  --at-kond: "DIN Condensed", "Bahnschrift Condensed", "Roboto Condensed", "sans-serif-condensed", "Arial Narrow", "Avenir Next Condensed", Impact, sans-serif;
+  --at-mono: ui-monospace, "SF Mono", Menlo, Consolas, "Roboto Mono", monospace;
+  --at-korn: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='128'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='1' stitchTiles='stitch'/%3E%3CfeColorMatrix values='1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 .11'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --at-abrieb: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.55' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -11 0 0 0 8'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --at-chrom: conic-gradient(from 200deg, #f2f2ec, #8b8b84 12%, #e6e6df 24%, #5f5f59 38%, #d9d9d2 52%, #74746d 66%, #f4f4ee 80%, #8e8e87 90%, #f2f2ec);
+  background:
+    repeating-linear-gradient(-45deg, var(--at-gelb) 0 12px, #121212 12px 24px) 0 0 / 100% 6px no-repeat,
+    radial-gradient(900px 460px at 50% -140px, rgba(255, 50, 25, .14), transparent 70%),
+    radial-gradient(130% 100% at 50% 35%, transparent 50%, rgba(0, 0, 0, .7) 100%),
+    linear-gradient(180deg, #1c1d18, #0e0f0c);
+  background-color: #0e0f0c;
+  color: var(--at-farbe);
+}
+
+/* ---------- Kopf der Seite ---------- */
+body.thema-atom .pcw-kicker { color: var(--at-bern); font-family: var(--at-mono); font-size: 11px; letter-spacing: .38em; opacity: .95; }
+body.thema-atom .pcw-kopf h1 {
+  font-family: var(--at-kond); font-weight: 700; text-transform: uppercase; letter-spacing: .07em;
+  font-size: 40px; line-height: 1; margin-top: 8px; color: var(--at-farbe);
+  text-shadow: 0 2px 0 rgba(0, 0, 0, .55), 0 0 18px rgba(255, 60, 30, .12);
+}
+body.thema-atom .pcw-wahl {
+  background: linear-gradient(180deg, #2b2c25, #191a15); border: 1px solid #070706; border-radius: 9px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 230, .08), 0 3px 8px rgba(0, 0, 0, .55);
+}
+body.thema-atom .pcw-wahl button {
+  font-family: var(--at-kond); font-weight: 700; font-size: 14px; letter-spacing: .1em; text-transform: uppercase;
+  color: #d5d0b6; opacity: .72; border-radius: 6px; padding: 9px 12px 7px;
+}
+body.thema-atom .pcw-wahl button[aria-pressed="true"] {
+  opacity: 1; color: var(--at-bern);
+  background: linear-gradient(180deg, #3b3c32, #26271f);
+  box-shadow: inset 0 0 0 1px rgba(255, 178, 30, .35), inset 0 1px 0 rgba(255, 255, 230, .1), 0 0 14px rgba(255, 178, 30, .14);
+  text-shadow: 0 0 8px rgba(255, 178, 30, .55);
+}
+body.thema-atom .pcw-wahl button:focus-visible { outline: 2px solid var(--at-gelb-hell); outline-offset: 1px; }
+body.thema-atom .pcw-fuss { font-family: var(--at-mono); font-size: 11px; letter-spacing: .08em; color: #b9b49a; opacity: .6; }
+
+/* ---------- Gehaeuse ---------- */
+body.thema-atom .at-karte { color: var(--at-farbe); container: atomkarte / inline-size; --at-key: -45deg; }
+body.thema-atom .at-karte.at-scharf { --at-key: 45deg; }
+body.thema-atom .at-karte button { -webkit-touch-callout: none; touch-action: manipulation; }
+body.thema-atom .at-vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+body.thema-atom .at-gehaeuse {
+  position: relative; height: 100%; border-radius: 14px; padding: 16px 16px 12px;
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; grid-template-rows: auto auto auto auto 1fr; column-gap: 12px; align-content: start;
+  background:
+    var(--at-korn),
+    radial-gradient(140% 80% at 25% -5%, rgba(255, 255, 225, .13), transparent 55%),
+    linear-gradient(180deg, #5c5a3e 0%, #4e4c34 52%, #403f2b 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 225, .28), inset 0 -2px 0 rgba(0, 0, 0, .4), inset 0 0 0 1px rgba(0, 0, 0, .4),
+    inset 0 0 22px rgba(0, 0, 0, .25),
+    0 26px 44px -20px rgba(0, 0, 0, .95), 0 6px 16px rgba(0, 0, 0, .5);
+}
+body.thema-atom .at-gehaeuse::before {           /* abgewetzte Kanten */
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  box-shadow: inset 0 0 0 2px rgba(190, 186, 140, .10);
+  -webkit-mask: var(--at-abrieb); mask: var(--at-abrieb);
+}
+
+body.thema-atom .at-schraube {
+  position: absolute; width: 12px; height: 12px; border-radius: 50%; z-index: 1;
+  background: radial-gradient(circle at 35% 30%, #f4f4ec, #a3a39a 45%, #56564f 85%);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .7), 0 0 0 1.5px rgba(0, 0, 0, .28), inset 0 -1px 1px rgba(0, 0, 0, .35);
+}
+body.thema-atom .at-schraube::before, body.thema-atom .at-schraube::after {
+  content: ""; position: absolute; left: 2px; right: 2px; top: 5px; height: 2px; border-radius: 1px;
+  background: #34342f; box-shadow: 0 1px 0 rgba(255, 255, 255, .35); transform: rotate(var(--at-rot));
+}
+body.thema-atom .at-schraube::after { transform: rotate(calc(var(--at-rot) + 90deg)); }
+body.thema-atom .at-s-lo { left: 7px; top: 7px; } body.thema-atom .at-s-ro { right: 7px; top: 7px; }
+body.thema-atom .at-s-lu { left: 7px; bottom: 7px; } body.thema-atom .at-s-ru { right: 7px; bottom: 7px; }
+
+/* ---------- Kopf der Karte ---------- */
+body.thema-atom .at-kopf { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 6px 6px 12px 10px; }
+body.thema-atom .at-schild { min-width: 0; }
+body.thema-atom .at-name { margin: 0; font-size: 30px; line-height: 1; color: var(--at-farbe); }
+body.thema-atom .at-sch { display: block; height: 1em; width: calc(1em * var(--at-r)); max-width: 100%; overflow: visible; }
+body.thema-atom .at-sch path { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 2.2; }
+body.thema-atom .at-sch-name {
+  opacity: .93; filter: drop-shadow(0 0 .7px rgba(235, 230, 207, .55));
+  -webkit-mask: var(--at-abrieb) 0 0 / 90px 90px; mask: var(--at-abrieb) 0 0 / 90px 90px;
+}
+body.thema-atom .at-dymo {
+  display: inline-block; margin-top: 9px; padding: 4px 10px 2px; border-radius: 2px; transform: rotate(-1.3deg);
+  background: linear-gradient(180deg, #232326, #0d0d0f 60%, #18181b);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .7), inset 0 1px 0 rgba(255, 255, 255, .14), inset 0 -1px 0 rgba(0, 0, 0, .6);
+  font: 700 14px/1.15 var(--at-kond); letter-spacing: .22em; text-transform: uppercase; color: #f1f1ec;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, .25), 0 -1px 0 rgba(0, 0, 0, .9);
+}
+body.thema-atom .at-dymo[hidden] { display: none; }
+
+/* Rundumleuchte: Rippenglas auf Sockel, Reflektor als wandernder Lichtstreifen */
+body.thema-atom .at-rundum { position: relative; flex: none; width: 54px; height: 64px; margin: -6px -2px 0 0; --at-rd1: #6e0f0a; --at-rd2: #2a0402; --at-rdlicht: rgba(255, 70, 40, .9); --at-glut: rgba(255, 40, 25, .75); }
+body.thema-atom .at-rd-fuss {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 15px; border-radius: 4px 4px 7px 7px;
+  background: linear-gradient(180deg, #4a4a43, #1c1c1a 55%, #0c0c0b); box-shadow: 0 3px 5px rgba(0, 0, 0, .7), inset 0 1px 0 rgba(255, 255, 255, .2);
+}
+body.thema-atom .at-rd-fuss::before {
+  content: ""; position: absolute; left: 6px; right: 6px; top: -3px; height: 5px; border-radius: 2px; background: var(--at-chrom);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .6);
+}
+body.thema-atom .at-rd-kuppel {
+  position: absolute; left: 9px; right: 9px; top: 5px; bottom: 16px; border-radius: 18px 18px 3px 3px / 15px 15px 3px 3px; overflow: hidden;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, .5), rgba(0, 0, 0, 0) 22%, rgba(255, 255, 255, .28) 32%, rgba(255, 255, 255, 0) 44%, rgba(0, 0, 0, 0) 68%, rgba(0, 0, 0, .55)),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, .1) 0 1.5px, rgba(0, 0, 0, .18) 1.5px 3.5px),
+    linear-gradient(180deg, rgba(255, 255, 255, .14), rgba(255, 255, 255, 0) 30%, rgba(0, 0, 0, 0) 80%, rgba(0, 0, 0, .25)),
+    radial-gradient(circle at 50% 72%, var(--at-rd1), var(--at-rd2) 88%);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .13), inset 0 -5px 7px rgba(0, 0, 0, .5);
+}
+body.thema-atom .at-rundum::before {                   /* Kappe */
+  content: ""; position: absolute; left: 20px; right: 20px; top: 1px; height: 7px; border-radius: 4px 4px 1px 1px; z-index: 1;
+  background: var(--at-chrom); box-shadow: 0 1px 2px rgba(0, 0, 0, .6);
+}
+body.thema-atom .at-rd-spiegel {
+  position: absolute; top: 0; bottom: 0; left: 0; width: 64%; opacity: 0;
+  background: radial-gradient(ellipse 50% 72% at 50% 56%, rgba(255, 248, 230, .95), var(--at-rdlicht) 36%, rgba(255, 30, 20, 0) 76%);
+  transform: translateX(-110%);
+}
+
+/* ---------- Statusleiste: VFD + Lampen ---------- */
+body.thema-atom .at-leiste {
+  display: flex; align-items: center; gap: 12px; padding: 9px 10px 9px 9px; border-radius: 9px;
+  background: var(--at-korn), linear-gradient(180deg, #1f201b, #141511);
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, .75), inset 0 0 0 1px rgba(0, 0, 0, .7), 0 1px 0 rgba(255, 255, 225, .18);
+}
+body.thema-atom .at-vfd {
+  position: relative; flex: 1; min-width: 0; height: 62px; padding: 8px 11px 0; border-radius: 5px; overflow: hidden;
+  background: radial-gradient(130% 150% at 50% 0%, #0f221c, #050b09 72%);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, .95), inset 0 0 0 1px rgba(116, 255, 214, .09), 0 0 0 2px #0a0a09, 0 1px 0 2px rgba(255, 255, 225, .08);
+  color: var(--at-vfd);
+}
+body.thema-atom .at-vfd::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background:
+    linear-gradient(170deg, rgba(255, 255, 255, .09), rgba(255, 255, 255, 0) 38%),
+    repeating-linear-gradient(180deg, rgba(0, 0, 0, .22) 0 1px, transparent 1px 3px);
+}
+body.thema-atom .at-vfd-zeile {
+  display: block; position: relative; height: 26px; filter: drop-shadow(0 0 4px rgba(116, 255, 214, .75));
+}
+body.thema-atom .at-vfd-zeile::before {             /* unbeleuchtete Punkte der Matrix */
+  content: ""; position: absolute; inset: 0 0 1px; opacity: .1;
+  background: radial-gradient(circle, var(--at-vfd) .9px, transparent 1.2px) 0 0 / 2.6px 2.6px;
+}
+body.thema-atom .at-vfd-haupt {
+  position: relative; display: block; white-space: nowrap; font: 800 25px/26px var(--at-mono); letter-spacing: .1em;
+  -webkit-mask: radial-gradient(circle, #000 1px, transparent 1.25px) 0 0 / 2.6px 2.6px;
+          mask: radial-gradient(circle, #000 1px, transparent 1.25px) 0 0 / 2.6px 2.6px;
+}
+body.thema-atom .at-vfd-sub {
+  display: block; margin-top: 4px; white-space: nowrap; overflow: hidden; text-overflow: clip;
+  font: 600 11px/14px var(--at-mono); letter-spacing: .16em; opacity: .78; text-shadow: 0 0 6px rgba(116, 255, 214, .55);
+}
+body.thema-atom .at-balken {
+  position: absolute; left: 11px; right: 11px; bottom: 6px; height: 3px; border-radius: 2px; opacity: 0;
+  background: rgba(116, 255, 214, .14); overflow: hidden; transition: opacity .3s;
+}
+body.thema-atom .at-balken i {
+  display: block; height: 100%; width: calc(var(--at-fort, 0) * 100%); background: var(--at-vfd);
+  box-shadow: 0 0 6px var(--at-vfd); transition: width .5s linear;
+}
+
+body.thema-atom .at-lampen { display: flex; gap: 9px; flex: none; padding-right: 2px; }
+body.thema-atom .at-lampe { display: grid; justify-items: center; gap: 7px; }
+body.thema-atom .at-lampe small { font: 700 10px/1 var(--at-kond); letter-spacing: .14em; color: var(--at-farbe); opacity: .82; padding-left: .14em; }
+body.thema-atom .at-lampe i {
+  position: relative; display: block; width: 28px; height: 28px; border-radius: 50%;
+  background: var(--at-chrom); box-shadow: 0 2px 3px rgba(0, 0, 0, .7), 0 0 0 1px rgba(0, 0, 0, .55);
+  --at-l1: #2a2a28; --at-l2: #111110;
+  transition: box-shadow .25s;
+}
+body.thema-atom .at-lampe i::after {
+  content: ""; position: absolute; inset: 4px; border-radius: 50%;
+  background:
+    radial-gradient(circle at 36% 30%, rgba(255, 255, 255, .6) 0 7%, rgba(255, 255, 255, 0) 24%),
+    repeating-conic-gradient(from 10deg, rgba(255, 255, 255, .11) 0 15deg, rgba(0, 0, 0, .2) 15deg 30deg),
+    radial-gradient(circle, var(--at-l1) 0%, var(--at-l2) 80%);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .7), inset 0 -2px 3px rgba(0, 0, 0, .5);
+  transition: filter .25s;
+}
+body.thema-atom .at-l-power i { --at-l1: #1c3d24; --at-l2: #07130a; }
+body.thema-atom .at-l-armed i { --at-l1: #44310b; --at-l2: #140d02; }
+body.thema-atom .at-l-launch i { --at-l1: #4a1210; --at-l2: #150302; }
+
+/* ---------- Abschussfeld ---------- */
+body.thema-atom .at-feld {
+  position: relative; margin-top: 14px; padding: 11px; border-radius: 10px;
+  background: var(--at-korn), repeating-linear-gradient(-45deg, var(--at-gelb) 0 13px, var(--at-schwarz) 13px 26px);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .55), inset 0 2px 2px rgba(255, 255, 255, .28), inset 0 -2px 3px rgba(0, 0, 0, .4),
+    0 1px 0 rgba(255, 255, 225, .14), 0 0 0 2px rgba(0, 0, 0, .3);
+  transition: box-shadow .4s, filter .4s;
+}
+body.thema-atom .at-feld::after {                     /* abgeschabte Streifen */
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: rgba(40, 36, 20, .35); -webkit-mask: var(--at-abrieb) 0 0 / 70px 70px; mask: var(--at-abrieb) 0 0 / 70px 70px; opacity: .5;
+}
+body.thema-atom .at-innen {
+  position: relative; height: 282px; border-radius: 6px; display: grid; place-items: end center; padding-bottom: 36px; z-index: 1;
+  background: var(--at-korn), radial-gradient(120% 90% at 50% 20%, #23241f, #121310 75%);
+  box-shadow: inset 0 3px 12px rgba(0, 0, 0, .95), inset 0 0 0 1px rgba(0, 0, 0, .8), 0 0 0 1px rgba(0, 0, 0, .6);
+  transition: background .4s;
+}
+body.thema-atom .at-innen::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity .4s;
+  background: radial-gradient(58% 55% at 50% 52%, rgba(255, 50, 25, .42), rgba(255, 30, 10, .1) 60%, rgba(255, 0, 0, 0) 80%);
+}
+body.thema-atom .at-karte[data-zustand="startet"] .at-innen::before { opacity: 1; animation: atom-glimmen 1.1s ease-in-out infinite; }
+body.thema-atom .at-zaehlt .at-innen::before { opacity: 1; animation: atom-glimmen 1s ease-out infinite; }
+body.thema-atom .at-innen > .at-schraube { width: 10px; height: 10px; }
+body.thema-atom .at-innen > .at-schraube::before, body.thema-atom .at-innen > .at-schraube::after { top: 4px; }
+body.thema-atom .at-f-lo { left: 7px; top: 7px; } body.thema-atom .at-f-ro { right: 7px; top: 7px; }
+body.thema-atom .at-f-lu { left: 7px; bottom: 7px; } body.thema-atom .at-f-ru { right: 7px; bottom: 7px; }
+
+body.thema-atom .at-gehaeuse { --at-hb: 196px; --at-kr: 176px; --at-kn: 116px; --at-ht: 34px; }
+body.thema-atom .at-buehne {
+  position: relative; width: var(--at-hb); height: var(--at-hb); perspective: 460px; perspective-origin: 38% 18%;
+  transition: perspective .62s cubic-bezier(.3, .7, .3, 1);
+}
+
+/* Kragen (gelber Hintergrund wie beim Not-Aus) mit Ringschrift */
+body.thema-atom .at-kragen {
+  position: absolute; left: 50%; top: 50%; width: var(--at-kr); height: var(--at-kr);
+  margin: calc(var(--at-kr) / -2) 0 0 calc(var(--at-kr) / -2); border-radius: 50%;
+  background: radial-gradient(circle at 38% 28%, var(--at-gelb-hell), var(--at-gelb) 48%, #b98300 100%);
+  box-shadow: 0 0 0 2px #0c0c0b, 0 8px 14px rgba(0, 0, 0, .75), inset 0 2px 2px rgba(255, 255, 255, .55), inset 0 -3px 6px rgba(0, 0, 0, .3);
+  transition: box-shadow .35s;
+}
+body.thema-atom .at-ring { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+body.thema-atom .at-ring text { font: 700 13px var(--at-kond); letter-spacing: 1.7px; fill: #1b1504; }
+body.thema-atom .at-luenette {
+  position: absolute; left: 50%; top: 50%; width: calc(var(--at-kn) + 22px); height: calc(var(--at-kn) + 22px);
+  margin: calc((var(--at-kn) + 22px) / -2) 0 0 calc((var(--at-kn) + 22px) / -2); border-radius: 50%;
+  background: var(--at-chrom); box-shadow: 0 0 0 2px #121212, 0 3px 5px rgba(0, 0, 0, .55);
+}
+body.thema-atom .at-luenette::after {
+  content: ""; position: absolute; inset: 6px; border-radius: 50%; background: #070707;
+  box-shadow: inset 0 3px 6px rgba(0, 0, 0, 1), 0 0 0 1px rgba(0, 0, 0, .6);
+}
+
+/* Pilzknopf */
+body.thema-atom .at-knopf {
+  position: absolute; left: 50%; top: 50%; width: var(--at-kn); height: var(--at-kn);
+  margin: calc(var(--at-kn) / -2) 0 0 calc(var(--at-kn) / -2); border: 0; padding: 0; border-radius: 50%;
+  cursor: pointer; touch-action: manipulation;
+  background:
+    radial-gradient(ellipse 56% 36% at 50% 22%, rgba(255, 255, 255, .42), rgba(255, 255, 255, 0) 72%),
+    radial-gradient(circle at 50% 125%, rgba(255, 130, 100, .5), rgba(255, 130, 100, 0) 52%),
+    radial-gradient(circle at 50% 44%, #e8161e 0%, #c40c14 36%, #8f040b 64%, #4c0004 88%, #2a0002 100%);
+  box-shadow: 0 10px 12px -3px rgba(0, 0, 0, .8), 0 0 0 1px rgba(40, 0, 0, .9),
+    inset 0 -9px 14px rgba(70, 0, 0, .6), inset 0 3px 3px rgba(255, 210, 200, .35);
+  transition: transform .13s cubic-bezier(.3, 1.4, .5, 1), box-shadow .25s, filter .3s;
+}
+body.thema-atom .at-knopf-glanz {
+  position: absolute; left: 22%; top: 11%; width: 36%; height: 20%; border-radius: 50%; pointer-events: none;
+  background: radial-gradient(ellipse at 50% 45%, rgba(255, 255, 255, .92), rgba(255, 255, 255, 0) 70%); transform: rotate(-22deg);
+}
+body.thema-atom .at-knopf-licht {
+  position: absolute; inset: 0; border-radius: 50%; pointer-events: none; opacity: 0; transition: opacity .3s;
+  background: radial-gradient(circle at 50% 52%, rgba(255, 240, 210, .95) 0%, rgba(255, 120, 80, .8) 26%, rgba(255, 35, 20, .35) 56%, rgba(255, 0, 0, 0) 74%);
+}
+body.thema-atom .at-knopf:active:not([aria-disabled="true"]), body.thema-atom .at-zaehlt .at-knopf,
+body.thema-atom .at-karte[data-zustand="startet"] .at-knopf {
+  transform: translateY(2px) scale(.955);
+  box-shadow: 0 4px 6px -2px rgba(0, 0, 0, .8), 0 0 0 1px rgba(40, 0, 0, .9), inset 0 -6px 12px rgba(70, 0, 0, .5), inset 0 3px 3px rgba(255, 210, 200, .3);
+}
+body.thema-atom .at-scharf.at-offen .at-knopf-licht { opacity: .28; animation: atom-atmen 1.6s ease-in-out infinite; }
+body.thema-atom .at-zaehlt .at-knopf-licht { opacity: 1; animation: atom-takt 1s ease-out infinite; }
+body.thema-atom .at-karte[data-zustand="startet"] .at-knopf-licht { opacity: 1; animation: atom-atmen 1.1s ease-in-out infinite; }
+body.thema-atom .at-zaehlt .at-kragen,
+body.thema-atom .at-karte[data-zustand="startet"] .at-kragen {
+  box-shadow: 0 0 0 2px #0c0c0b, 0 8px 14px rgba(0, 0, 0, .75), 0 0 46px 6px rgba(255, 40, 20, .45), inset 0 2px 2px rgba(255, 255, 255, .55), inset 0 -3px 6px rgba(0, 0, 0, .3);
+}
+
+/* Schutzhaube (3D, klar rot getoent) */
+body.thema-atom .at-hschatten {
+  position: absolute; inset: 8px; border-radius: 16px; pointer-events: none;
+  box-shadow: 7px 14px 18px -4px rgba(0, 0, 0, .65), inset 0 0 30px rgba(255, 30, 20, .1);
+  transition: opacity .4s;
+}
+body.thema-atom .at-haube {
+  position: absolute; inset: 0; z-index: 3; border: 0; padding: 0; background: transparent; border-radius: 12px; cursor: pointer;
+  transform-style: preserve-3d; transform-origin: 50% 0 0; transform: rotateX(0deg);   /* Scharnier auf Plattenhoehe */
+  transition: transform .62s cubic-bezier(.22, 1.25, .4, 1);
+  -webkit-tap-highlight-color: transparent;
+}
+body.thema-atom .at-hf { position: absolute; display: block; backface-visibility: visible; }
+body.thema-atom .at-h-deckel {
+  inset: 0; border-radius: 12px; transform: translateZ(var(--at-ht));
+  background:
+    linear-gradient(118deg, rgba(255, 255, 255, 0) 26%, rgba(255, 255, 255, .34) 33%, rgba(255, 255, 255, .07) 39%, rgba(255, 255, 255, 0) 45%,
+      rgba(255, 255, 255, 0) 60%, rgba(255, 255, 255, .15) 63%, rgba(255, 255, 255, 0) 68%),
+    linear-gradient(180deg, rgba(255, 255, 255, .2), rgba(255, 255, 255, 0) 16%, rgba(255, 255, 255, 0) 88%, rgba(255, 255, 255, .1)),
+    radial-gradient(120% 110% at 50% 50%, rgba(200, 12, 10, .1), rgba(190, 10, 10, .32));
+  border: 1.5px solid rgba(255, 150, 140, .6);
+  box-shadow: inset 0 0 0 1px rgba(90, 0, 0, .35), inset 0 0 22px rgba(255, 70, 60, .22), inset 0 1px 0 rgba(255, 255, 255, .55);
+}
+body.thema-atom .at-h-oben, body.thema-atom .at-h-unten { left: 0; right: 0; height: var(--at-ht); }
+body.thema-atom .at-h-links, body.thema-atom .at-h-rechts { top: 0; bottom: 0; width: var(--at-ht); }
+body.thema-atom .at-h-oben { top: 0; transform-origin: 50% 0; transform: rotateX(90deg); }
+body.thema-atom .at-h-unten { bottom: 0; transform-origin: 50% 100%; transform: rotateX(-90deg); }
+body.thema-atom .at-h-links { left: 0; transform-origin: 0 50%; transform: rotateY(-90deg); }
+body.thema-atom .at-h-rechts { right: 0; transform-origin: 100% 50%; transform: rotateY(90deg); }
+body.thema-atom .at-h-oben, body.thema-atom .at-h-unten, body.thema-atom .at-h-links, body.thema-atom .at-h-rechts {
+  background: linear-gradient(180deg, rgba(255, 140, 125, .5), rgba(200, 20, 15, .3) 60%, rgba(120, 0, 0, .38));
+  border: 1px solid rgba(255, 170, 160, .55);
+  box-shadow: inset 0 0 8px rgba(255, 90, 70, .35);
+}
+body.thema-atom .at-h-lasche {
+  position: absolute; left: 50%; bottom: -15px; width: 64px; height: 20px; margin-left: -32px;
+  display: grid; place-items: center; border-radius: 0 0 10px 10px; color: rgba(255, 255, 255, .92);
+  background: linear-gradient(180deg, #e8312b, #a90f0f 70%, #7e0808);
+  box-shadow: inset 0 -3px 4px rgba(0, 0, 0, .35), inset 0 1px 0 rgba(255, 255, 255, .35), 0 3px 5px rgba(0, 0, 0, .5);
+}
+body.thema-atom .at-sch-lasche { height: 9px; margin-top: -2px; transition: opacity .2s; }
+body.thema-atom .at-offen .at-sch-lasche { opacity: 0; }   /* Lasche steht hochkant: Schrift waere nur noch ein Strich */
+body.thema-atom .at-scharnier {
+  position: absolute; left: 24%; right: 24%; top: -7px; height: 12px; border-radius: 6px; z-index: 4; pointer-events: none;
+  background:
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0) 0 22px, rgba(0, 0, 0, .55) 22px 23px, rgba(255, 255, 255, .3) 23px 24px),
+    linear-gradient(180deg, #f6f6f0, #9a9a93 42%, #55554f 58%, #cfcfc8);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, .65), 0 0 0 1px rgba(0, 0, 0, .4);
+}
+body.thema-atom .at-riegel {
+  position: absolute; left: 50%; bottom: -28px; width: 40px; height: 10px; margin-left: -20px; border-radius: 2px; z-index: 2;
+  background: linear-gradient(180deg, #d6d6cf, #6d6d66); box-shadow: 0 2px 2px rgba(0, 0, 0, .6), 0 0 0 1px rgba(0, 0, 0, .5);
+}
+body.thema-atom .at-riegel::after {                    /* Verriegelungsbolzen: rot = verriegelt */
+  content: ""; position: absolute; left: 15px; width: 10px; top: -7px; height: 8px; border-radius: 2px 2px 0 0;
+  background: linear-gradient(180deg, #ff4436, #a10c0c); box-shadow: 0 0 0 1px rgba(0, 0, 0, .55);
+  transition: transform .25s, background .25s;
+}
+body.thema-atom .at-haube-frei .at-riegel::after { transform: translateY(8px); background: linear-gradient(180deg, #59ff86, #138a37); }
+body.thema-atom .at-offen .at-buehne { perspective: 1150px; }
+body.thema-atom .at-offen .at-haube { transform: rotateX(94deg); }   /* klappt aus der Konsole hoch, steht leicht nach hinten */
+body.thema-atom .at-offen .at-hschatten { opacity: 0; }
+body.thema-atom .at-h-deckel::after {                  /* Innenseite: dunkler getoent, sichtbar sobald die Haube steht */
+  content: ""; position: absolute; inset: -1.5px; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity .3s .12s;
+  background: linear-gradient(0deg, rgba(60, 0, 0, .42), rgba(120, 8, 4, .18) 55%, rgba(255, 255, 255, .06));
+}
+body.thema-atom .at-offen .at-h-deckel::after { opacity: 1; }
+body.thema-atom .at-scharnier::after {                 /* Kontaktschatten der offenen Haube am Scharnier */
+  content: ""; position: absolute; left: -14%; right: -14%; top: 5px; height: 16px; border-radius: 50%; opacity: 0; transition: opacity .35s;
+  background: radial-gradient(closest-side, rgba(0, 0, 0, .55), rgba(0, 0, 0, 0));
+}
+body.thema-atom .at-offen .at-scharnier::after { opacity: 1; }
+body.thema-atom .at-offen .at-innen { background: radial-gradient(70% 60% at 50% 48%, rgba(255, 40, 20, .16), rgba(0, 0, 0, 0)), var(--at-korn), radial-gradient(120% 90% at 50% 20%, #23241f, #121310 75%); }
+
+/* Countdown-Ziffer */
+body.thema-atom .at-zahl { position: absolute; inset: 0; z-index: 6; display: grid; place-items: center; pointer-events: none; color: #fff; font-size: 118px; }
+body.thema-atom .at-sch-zahl { height: 1em; filter: drop-shadow(0 0 2px #fff) drop-shadow(0 0 14px rgba(255, 40, 20, .95)); }
+body.thema-atom .at-zahl.at-tick .at-sch-zahl { animation: atom-tick 1s cubic-bezier(.2, .9, .3, 1) both; }
+
+/* ---------- Bedienreihe (Raster im Gehaeuse; DOM-Reihenfolge = Bedienreihenfolge Schluessel -> Haube -> Knopf -> SHUTDOWN) ---------- */
+body.thema-atom .at-kopf, body.thema-atom .at-leiste, body.thema-atom .at-feld, body.thema-atom .at-hinweis { grid-column: 1 / -1; }
+body.thema-atom .at-kopf { grid-row: 1; } body.thema-atom .at-leiste { grid-row: 2; } body.thema-atom .at-feld { grid-row: 3; }
+body.thema-atom .at-schalter { grid-row: 4; grid-column: 1; margin-top: 14px; }
+body.thema-atom .at-mitte {
+  grid-row: 4; grid-column: 2; margin-top: 14px; min-width: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 7px;
+}
+body.thema-atom .at-stopfeld { grid-row: 4; grid-column: 3; margin-top: 14px; }
+body.thema-atom .at-hinweis { grid-row: 5; }
+body.thema-atom .at-platte {
+  position: relative; width: 104px; height: 118px; border-radius: 9px;
+  background: var(--at-korn), linear-gradient(180deg, #24251f, #151612);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 225, .1), inset 0 0 0 1px rgba(0, 0, 0, .7), 0 2px 0 rgba(0, 0, 0, .35), 0 3px 8px rgba(0, 0, 0, .45);
+}
+body.thema-atom .at-gravur {
+  position: absolute; left: 0; right: 0; top: 9px; text-align: center; white-space: nowrap;
+  font: 700 11px/1 var(--at-kond); letter-spacing: .2em; padding-left: .2em; color: var(--at-farbe); opacity: .88;
+}
+body.thema-atom .at-pos {
+  position: absolute; top: 28px; font: 700 12px/1 var(--at-kond); letter-spacing: .1em; color: var(--at-farbe); opacity: .75;
+  transition: color .25s, text-shadow .25s, opacity .25s;
+}
+body.thema-atom .at-pos-safe { left: 12px; }
+body.thema-atom .at-pos-arm { right: 14px; color: #ff6a52; }
+body.thema-atom .at-karte:not(.at-scharf) .at-pos-safe { opacity: 1; color: #fff; text-shadow: 0 0 6px rgba(255, 255, 255, .35); }
+body.thema-atom .at-scharf .at-pos-arm { opacity: 1; color: #ff5a3c; text-shadow: 0 0 8px rgba(255, 70, 40, .85); }
+
+body.thema-atom .at-schloss {
+  position: absolute; left: 50%; top: 70px; width: 60px; height: 60px; margin: -30px 0 0 -30px; border: 0; padding: 0; border-radius: 50%;
+  cursor: pointer; background: var(--at-chrom);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, .65), 0 0 0 1px rgba(0, 0, 0, .6), inset 0 0 0 3px rgba(0, 0, 0, .12);
+}
+body.thema-atom .at-schloss::before {                  /* Rastmarken SAFE / ARM auf der Rosette */
+  content: ""; position: absolute; inset: 0; border-radius: 50%; pointer-events: none;
+  background:
+    conic-gradient(from -45deg, #1d1d1b 0 3deg, transparent 3deg 357deg, #1d1d1b 357deg),
+    conic-gradient(from 45deg, #b5160f 0 3deg, transparent 3deg 357deg, #b5160f 357deg);
+  -webkit-mask: radial-gradient(circle, transparent 0 25.5px, #000 26px 29px, transparent 29.5px);
+          mask: radial-gradient(circle, transparent 0 25.5px, #000 26px 29px, transparent 29.5px);
+}
+body.thema-atom .at-zylinder {
+  position: absolute; inset: 8px; border-radius: 50%;
+  background: radial-gradient(circle at 40% 32%, #f0e6c0, #b7a56e 46%, #6f6136 100%);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, .55), inset 0 -1px 1px rgba(255, 255, 255, .4), 0 0 0 2px #2b2b27;
+}
+body.thema-atom .at-schluessel {                     /* dreht sich: Kern, Schluessel, Ring */
+  position: absolute; inset: 0; border-radius: 50%;
+  transform: rotate(var(--at-key)); transition: transform .34s cubic-bezier(.3, 1.6, .5, 1);
+}
+body.thema-atom .at-kern { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+body.thema-atom .at-reide {
+  position: absolute; left: 0; top: 0; width: 100%; height: calc(100% * 56 / 44); display: block; overflow: visible;
+  filter: drop-shadow(0 2.5px 1.8px rgba(0, 0, 0, .6));
+}
+body.thema-atom .at-anhaenger {                        /* haengt im Loch der Reide (Loch bei +20.5 von der Mitte) */
+  position: absolute; left: 50%; top: calc(50% + 20.5px); width: 0; height: 0;
+  transform: rotate(calc(-1 * var(--at-key))); transition: transform .34s cubic-bezier(.3, 1.6, .5, 1);
+}
+body.thema-atom .at-anhaenger::before {                /* Schluesselring */
+  content: ""; position: absolute; left: -5px; top: -3px; width: 10px; height: 13px; border-radius: 50%;
+  border: 2px solid #bdbdb5; box-shadow: 0 1px 1px rgba(0, 0, 0, .6);
+}
+body.thema-atom .at-anhaenger b {
+  position: absolute; left: -9px; top: 8px; width: 18px; height: 22px; border-radius: 3px 3px 5px 5px;
+  display: grid; place-items: end center; padding-bottom: 3px;
+  background: linear-gradient(180deg, #d21d22, #8f0a0e); box-shadow: 0 3px 4px rgba(0, 0, 0, .6), inset 0 1px 0 rgba(255, 255, 255, .3);
+  font: 700 9px/1 var(--at-kond); letter-spacing: .05em; color: #fff; transform-origin: 50% -9px;
+  animation: atom-pendel-a .9s ease-out;
+}
+body.thema-atom .at-anhaenger b::before {
+  content: ""; position: absolute; top: 3px; left: 6px; width: 6px; height: 6px; border-radius: 50%;
+  background: #1a1a18; box-shadow: inset 0 1px 1px rgba(0, 0, 0, .8);
+}
+body.thema-atom .at-scharf .at-anhaenger b { animation-name: atom-pendel-b; }
+
+/* Warnschild */
+body.thema-atom .at-danger {
+  width: 100%; max-width: 132px; display: grid; border-radius: 4px; overflow: hidden;
+  background: #f3f0e4; border: 2px solid #161616; box-shadow: 0 3px 5px rgba(0, 0, 0, .5), inset 0 0 0 1px rgba(255, 255, 255, .3);
+  transform: rotate(-.6deg);
+}
+body.thema-atom .at-danger > b { display: grid; place-items: center; padding: 4px 4px 3px; background: #161616; }
+body.thema-atom .at-danger > b span {
+  display: block; padding: 3px 10px 1px; border-radius: 50%; background: #d0121b; color: #fff;
+  font: 700 15px/1 var(--at-kond); letter-spacing: .12em; padding-left: calc(10px + .12em);
+}
+body.thema-atom .at-danger-text {
+  padding: 6px 6px 5px; text-align: center; color: #141414; text-transform: uppercase;
+  font: 700 12px/1.12 var(--at-kond); letter-spacing: .06em;
+}
+
+/* Zweiter Schluessel (rein dekorativ, dreht beim Entsichern synchron mit) */
+body.thema-atom .at-key2 {
+  display: flex; align-items: center; gap: 7px; padding: 4px 9px 4px 5px; border-radius: 17px; max-width: 100%;
+  background: var(--at-korn), linear-gradient(180deg, #22231d, #141511);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 225, .08), inset 0 0 0 1px rgba(0, 0, 0, .7), 0 1px 0 rgba(255, 255, 225, .12);
+}
+body.thema-atom .at-k2-rosette {
+  position: relative; flex: none; width: 28px; height: 28px; border-radius: 50%; background: var(--at-chrom);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, .6), 0 0 0 1px rgba(0, 0, 0, .55);
+}
+body.thema-atom .at-k2-rosette .at-schluessel {
+  inset: 4px; background: radial-gradient(circle at 40% 32%, #f0e6c0, #b7a56e 46%, #6f6136 100%);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, .55), 0 0 0 1px #2b2b27;
+}
+body.thema-atom .at-k2-rosette .at-reide { filter: drop-shadow(0 1.5px 1px rgba(0, 0, 0, .6)); }
+body.thema-atom .at-k2-text {
+  display: grid; gap: 2px; white-space: nowrap; color: var(--at-farbe); opacity: .85;
+  font: 700 11px/1 var(--at-kond); letter-spacing: .14em;
+}
+body.thema-atom .at-k2-text small { font-size: 8.5px; letter-spacing: .2em; opacity: .7; }
+body.thema-atom .at-scharf .at-k2-text { color: #ff6a52; opacity: 1; }
+
+/* SHUTDOWN mit Schutzbuegeln */
+body.thema-atom .at-buegel {
+  position: absolute; top: 34px; width: 9px; height: 66px; border-radius: 5px 5px 2px 2px; z-index: 2; pointer-events: none;
+  background: linear-gradient(90deg, #5d5d57, #f1f1ea 40%, #a0a099 65%, #4a4a45);
+  box-shadow: 2px 4px 5px rgba(0, 0, 0, .55), 0 0 0 1px rgba(0, 0, 0, .45);
+}
+body.thema-atom .at-buegel-l { left: 11px; } body.thema-atom .at-buegel-r { right: 11px; }
+body.thema-atom .at-stop {
+  position: absolute; left: 50%; top: 68px; width: 58px; height: 52px; margin: -26px 0 0 -29px; border: 0; padding: 0; border-radius: 6px;
+  cursor: pointer; overflow: hidden; display: grid; place-items: center;
+  font: 700 13px/1.02 var(--at-kond); letter-spacing: .12em; color: rgba(255, 196, 92, .32);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .16), rgba(255, 255, 255, 0) 40%),
+    radial-gradient(circle at 50% 55%, #4a3810, #251b06 80%);
+  box-shadow: 0 0 0 3px #0c0c0b, 0 0 0 5px #8a8a83, 0 0 0 6px rgba(0, 0, 0, .6), 0 6px 9px rgba(0, 0, 0, .65),
+    inset 0 -6px 10px rgba(0, 0, 0, .45);
+  transition: transform .1s, background .25s, color .25s, box-shadow .25s;
+}
+body.thema-atom .at-stop-text { position: relative; z-index: 1; padding-left: .12em; padding-top: 2px; }
+body.thema-atom .at-stop-p {
+  position: absolute; left: 0; right: 0; bottom: 0; height: calc(var(--at-p, 0) * 100%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, .85), rgba(255, 236, 190, .55));
+  box-shadow: 0 -2px 8px rgba(255, 240, 200, .9);
+}
+body.thema-atom .at-karte.at-stopbereit .at-stop { touch-action: none; }
+body.thema-atom .at-stop.at-gedrueckt { transform: translateY(2px) scale(.96); }
+/* Halte-Fortschritt: 5 Segmente unter dem Knopf */
+body.thema-atom .at-segmente {
+  position: absolute; left: 24px; right: 24px; bottom: 7px; height: 7px; display: flex; gap: 3px; pointer-events: none;
+}
+body.thema-atom .at-segmente i {
+  flex: 1; border-radius: 1.5px; background: #2b2410;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .7), 0 1px 0 rgba(255, 255, 225, .07);
+}
+body.thema-atom .at-stopbereit .at-segmente i { background: #4a3a10; }
+body.thema-atom .at-segmente i.at-an {
+  background: linear-gradient(180deg, #fff1c4, #ffb21e); box-shadow: 0 0 7px 1px rgba(255, 178, 30, .8), inset 0 -1px 0 rgba(150, 70, 0, .5);
+}
+body.thema-atom .at-ohne-stop .at-segmente { display: none; }
+body.thema-atom .at-karte[data-zustand="an"].at-scharf:not(.at-ohne-stop) .at-stop,
+body.thema-atom .at-karte[data-zustand="stoppt"] .at-stop {
+  color: #2a1600;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .35), rgba(255, 255, 255, 0) 40%), radial-gradient(circle at 50% 50%, #fff3cf, #ffb21e 48%, #c46a00 100%);
+  box-shadow: 0 0 0 3px #0c0c0b, 0 0 0 5px #8a8a83, 0 0 0 6px rgba(0, 0, 0, .6), 0 6px 9px rgba(0, 0, 0, .65), 0 0 22px 4px rgba(255, 170, 30, .5),
+    inset 0 -6px 10px rgba(150, 70, 0, .35);
+}
+body.thema-atom .at-zaehlt .at-stop {
+  color: #fff; animation: atom-blink .5s steps(1) infinite;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .3), rgba(255, 255, 255, 0) 40%), radial-gradient(circle at 50% 50%, #ffd6cc, #ff3b30 48%, #8a0000 100%);
+  box-shadow: 0 0 0 3px #0c0c0b, 0 0 0 5px #8a8a83, 0 0 0 6px rgba(0, 0, 0, .6), 0 6px 9px rgba(0, 0, 0, .65), 0 0 22px 4px rgba(255, 40, 30, .55);
+}
+body.thema-atom .at-ohne-stop:not(.at-zaehlt) .at-stop {
+  color: rgba(255, 255, 255, .22);
+  background: repeating-linear-gradient(-45deg, rgba(0, 0, 0, .35) 0 5px, rgba(255, 255, 255, .04) 5px 10px), radial-gradient(circle, #2e2e2a, #191917);
+}
+body.thema-atom .at-lockout { display: none; position: absolute; right: 2px; bottom: -6px; z-index: 3; width: 30px; pointer-events: none; transform: rotate(8deg); }
+body.thema-atom .at-ohne-stop .at-lockout { display: block; }
+body.thema-atom .at-lockout svg { display: block; width: 26px; height: 34px; filter: drop-shadow(0 3px 3px rgba(0, 0, 0, .6)); }
+body.thema-atom .at-lockout b {
+  position: absolute; right: 18px; top: 20px; padding: 3px 4px 2px; border-radius: 2px; white-space: nowrap;
+  background: var(--at-gelb); color: #141414; border: 1px solid #141414; transform: rotate(-14deg);
+  font: 700 9px/1 var(--at-kond); letter-spacing: .08em; box-shadow: 0 2px 3px rgba(0, 0, 0, .5);
+}
+
+/* Hinweiszeile */
+body.thema-atom .at-hinweis {
+  margin: 12px 4px 2px; min-height: 2.7em; display: flex; align-items: center; justify-content: center; text-align: center;
+  font: 600 13.5px/1.35 -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif; color: var(--at-farbe);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, .55);
+}
+body.thema-atom .at-hinweis.at-info-m { color: var(--at-gelb-hell); }
+body.thema-atom .at-hinweis.at-fehler { color: #ff7b6e; }
+
+/* Lichtkegel der Rundumleuchte ueber dem Gehaeuse */
+body.thema-atom .at-strahl {
+  position: absolute; inset: 0; border-radius: inherit; overflow: hidden; pointer-events: none; z-index: 7; opacity: 0; transition: opacity .5s;
+  --at-strahlfarbe: rgba(255, 40, 25, .3);
+}
+body.thema-atom .at-strahl i {
+  position: absolute; top: -10%; bottom: -10%; left: 0; width: 55%; transform: translateX(-100%);
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0), var(--at-strahlfarbe) 50%, rgba(0, 0, 0, 0));
+}
+
+/* ---------- Zustaende ---------- */
+body.thema-atom .at-karte[data-zustand="an"] .at-l-power i { --at-l1: #e4ffe9; --at-l2: #12b443; box-shadow: 0 2px 3px rgba(0, 0, 0, .7), 0 0 0 1px rgba(0, 0, 0, .55), 0 0 16px 3px rgba(70, 255, 120, .55); }
+body.thema-atom .at-karte[data-zustand="stoppt"] .at-l-power i { --at-l1: #e4ffe9; --at-l2: #12b443; box-shadow: 0 2px 3px rgba(0, 0, 0, .7), 0 0 0 1px rgba(0, 0, 0, .55), 0 0 16px 3px rgba(70, 255, 120, .55); animation: atom-blink 1s steps(1) infinite; }
+body.thema-atom .at-scharf .at-l-armed i { --at-l1: #fff1c8; --at-l2: #e08a00; box-shadow: 0 2px 3px rgba(0, 0, 0, .7), 0 0 0 1px rgba(0, 0, 0, .55), 0 0 16px 3px rgba(255, 175, 30, .6); animation: atom-blink-weich 1s ease-in-out infinite; }
+body.thema-atom .at-zaehlt .at-l-launch i,
+body.thema-atom .at-karte[data-zustand="startet"] .at-l-launch i { --at-l1: #ffe0d8; --at-l2: #e01810; box-shadow: 0 2px 3px rgba(0, 0, 0, .7), 0 0 0 1px rgba(0, 0, 0, .55), 0 0 16px 3px rgba(255, 45, 30, .65); animation: atom-blink .5s steps(1) infinite; }
+
+body.thema-atom .at-scharf .at-feld,
+body.thema-atom .at-zaehlt .at-feld {
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .55), inset 0 2px 2px rgba(255, 255, 255, .28), inset 0 -2px 3px rgba(0, 0, 0, .4),
+    0 1px 0 rgba(255, 255, 225, .14), 0 0 0 2px rgba(0, 0, 0, .3), 0 0 26px rgba(255, 190, 20, .22);
+  filter: brightness(1.08) saturate(1.05);
+}
+body.thema-atom .at-karte[data-zustand="an"].at-scharf .at-feld { filter: none; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .55), inset 0 2px 2px rgba(255, 255, 255, .28), inset 0 -2px 3px rgba(0, 0, 0, .4), 0 1px 0 rgba(255, 255, 225, .14), 0 0 0 2px rgba(0, 0, 0, .3); }
+
+body.thema-atom .at-karte[data-zustand="unbekannt"] .at-vfd-zeile { animation: atom-blink-weich 1.6s ease-in-out infinite; }
+body.thema-atom .at-karte[data-zustand="aus"] .at-vfd,
+body.thema-atom .at-karte[data-zustand="unbekannt"] .at-vfd { --at-vfd: #79e9cb; }
+body.thema-atom .at-karte[data-zustand="startet"] .at-balken,
+body.thema-atom .at-karte[data-zustand="stoppt"] .at-balken { opacity: 1; }
+body.thema-atom .at-karte[data-zustand="startet"] .at-vfd { --at-vfd: #ff6a4d; }
+body.thema-atom .at-karte[data-zustand="startet"] .at-vfd-zeile { filter: drop-shadow(0 0 4px rgba(255, 90, 60, .8)); }
+body.thema-atom .at-karte[data-zustand="stoppt"] .at-vfd { --at-vfd: #ffc04a; }
+body.thema-atom .at-karte[data-zustand="stoppt"] .at-vfd-zeile { filter: drop-shadow(0 0 4px rgba(255, 180, 60, .8)); }
+body.thema-atom .at-zaehlt .at-vfd { --at-vfd: #ff6a4d; }
+body.thema-atom .at-zaehlt .at-vfd-zeile { filter: drop-shadow(0 0 5px rgba(255, 90, 60, .9)); }
+body.thema-atom .at-karte[data-zustand="an"] .at-vfd { --at-vfd: #7dff9e; }
+body.thema-atom .at-karte[data-zustand="an"] .at-vfd-zeile { filter: drop-shadow(0 0 4px rgba(110, 255, 150, .75)); }
+body.thema-atom .at-karte.at-scharf .at-vfd { --at-vfd: #ffc04a; }
+body.thema-atom .at-karte.at-scharf .at-vfd-zeile { filter: drop-shadow(0 0 4px rgba(255, 180, 60, .8)); }
+body.thema-atom .at-zaehlt.at-scharf .at-vfd,
+body.thema-atom .at-karte[data-zustand="startet"].at-scharf .at-vfd { --at-vfd: #ff6a4d; }
+body.thema-atom .at-karte[data-zustand="startet"].at-scharf .at-vfd-zeile { filter: drop-shadow(0 0 4px rgba(255, 90, 60, .8)); }
+body.thema-atom .at-karte.at-stoerung[data-zustand] .at-vfd { --at-vfd: #ff4a3a; }
+body.thema-atom .at-karte.at-stoerung[data-zustand] .at-vfd-zeile { filter: drop-shadow(0 0 5px rgba(255, 60, 40, .9)); animation: atom-blink-weich .8s ease-in-out infinite; }
+body.thema-atom .at-karte.at-stoerung[data-zustand] .at-l-launch i {
+  --at-l1: #ffe0d8; --at-l2: #e01810; animation: atom-blink .5s steps(1) infinite;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, .7), 0 0 0 1px rgba(0, 0, 0, .55), 0 0 16px 3px rgba(255, 45, 30, .65);
+}
+
+/* Rundumleuchte: rot drehend = Start, bernstein drehend = Herunterfahren, gruen ruhig = laeuft */
+body.thema-atom .at-karte[data-zustand="startet"] .at-rd-spiegel,
+body.thema-atom .at-karte[data-zustand="stoppt"] .at-rd-spiegel,
+body.thema-atom .at-zaehlt .at-rd-spiegel { opacity: 1; animation: atom-dreh 1.1s linear infinite; }
+body.thema-atom .at-karte[data-zustand="startet"] .at-rd-kuppel,
+body.thema-atom .at-karte[data-zustand="stoppt"] .at-rd-kuppel,
+body.thema-atom .at-zaehlt .at-rd-kuppel { animation: atom-leuchten 1.1s linear infinite; }
+body.thema-atom .at-karte[data-zustand="startet"] .at-rundum,
+body.thema-atom .at-zaehlt .at-rundum { --at-rd1: #9c160d; --at-rd2: #3a0503; }
+body.thema-atom .at-karte[data-zustand="stoppt"] .at-rundum { --at-rd1: #8a5a08; --at-rd2: #2e1d02; --at-rdlicht: rgba(255, 180, 40, .9); --at-glut: rgba(255, 170, 30, .75); }
+body.thema-atom .at-karte[data-zustand="an"] .at-rundum { --at-rd1: #c9ffd8; --at-rd2: #15913c; --at-glut: rgba(70, 255, 120, .5); }
+body.thema-atom .at-karte[data-zustand="an"] .at-rd-kuppel {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .13), inset 0 -5px 7px rgba(0, 0, 0, .35), 0 0 16px 4px var(--at-glut);
+}
+body.thema-atom .at-karte[data-zustand="startet"] .at-strahl,
+body.thema-atom .at-karte[data-zustand="stoppt"] .at-strahl { opacity: 1; }
+body.thema-atom .at-karte[data-zustand="stoppt"] .at-strahl { --at-strahlfarbe: rgba(255, 170, 30, .22); }
+body.thema-atom .at-karte[data-zustand="startet"] .at-strahl i,
+body.thema-atom .at-karte[data-zustand="stoppt"] .at-strahl i { animation: atom-schwenk 1.1s linear infinite; }
+
+/* Effekte beim Ausloesen */
+body.thema-atom .at-gehaeuse.at-ruetteln { animation: atom-ruetteln .6s linear; }
+body.thema-atom .at-gehaeuse::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 8; opacity: 0;
+  background: radial-gradient(70% 60% at 50% 52%, rgba(255, 235, 200, .55), rgba(255, 50, 20, .25) 55%, rgba(255, 0, 0, 0));
+}
+body.thema-atom .at-gehaeuse.at-blitz::after { animation: atom-blitz .7s ease-out; }
+body.thema-atom .at-wackeln { animation: atom-wackeln .36s cubic-bezier(.3, .6, .4, 1); }
+body.thema-atom .at-haube.at-wackeln { animation: atom-klappern .36s linear; }
+
+/* Fokus */
+body.thema-atom .at-karte button:focus-visible { outline: 3px solid var(--at-gelb-hell); outline-offset: 4px; }
+body.thema-atom .at-karte .at-haube:focus-visible { outline-offset: 6px; border-radius: 14px; }
+body.thema-atom .at-karte .at-knopf:focus-visible { outline: 3px solid #0d0d0d; outline-offset: 3px; }
+body.thema-atom .at-karte .at-knopf:focus-visible .at-knopf-glanz { box-shadow: none; }
+body.thema-atom .at-karte .at-knopf:focus-visible::after {
+  content: ""; position: absolute; inset: -9px; border-radius: 50%; border: 2px dashed #fff; pointer-events: none;
+}
+body.thema-atom .at-karte .at-schloss:focus-visible { outline-offset: 5px; border-radius: 50%; }
+
+/* ---------- Keyframes ---------- */
+@keyframes atom-blink { 50% { opacity: .25; } }
+@keyframes atom-blink-weich { 0%, 100% { opacity: 1; } 50% { opacity: .55; } }
+@keyframes atom-atmen { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(1.45); } }
+@keyframes atom-takt { 0% { filter: brightness(1.7); } 60%, 100% { filter: brightness(.9); } }
+@keyframes atom-tick {
+  0% { transform: scale(1.7); opacity: 0; }
+  18% { transform: scale(1); opacity: 1; }
+  75% { transform: scale(.94); opacity: 1; }
+  100% { transform: scale(.88); opacity: 0; }
+}
+@keyframes atom-dreh { from { transform: translateX(-110%); } to { transform: translateX(150%); } }
+@keyframes atom-leuchten {
+  0%, 100% { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .13), inset 0 -5px 7px rgba(0, 0, 0, .5), 0 0 4px 0 var(--at-glut); }
+  45% { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .13), inset 0 -5px 7px rgba(0, 0, 0, .5), 0 0 30px 10px var(--at-glut); }
+}
+@keyframes atom-glimmen { 0%, 100% { opacity: .55; } 45% { opacity: 1; } }
+@keyframes atom-schwenk { from { transform: translateX(-100%); } to { transform: translateX(185%); } }
+@keyframes atom-blitz { 0% { opacity: 0; } 12% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes atom-ruetteln {
+  10% { transform: translate(-3px, 2px); } 20% { transform: translate(3px, -2px); } 30% { transform: translate(-3px, -1px); }
+  40% { transform: translate(2px, 2px); } 55% { transform: translate(-2px, 1px); } 70% { transform: translate(1px, -1px); }
+  85% { transform: translate(-1px, 0); } 100% { transform: none; }
+}
+@keyframes atom-wackeln { 20% { transform: translateX(-4px); } 40% { transform: translateX(4px); } 60% { transform: translateX(-3px); } 80% { transform: translateX(2px); } }
+@keyframes atom-klappern { 25% { transform: rotateX(5deg); } 50% { transform: rotateX(0deg); } 75% { transform: rotateX(3deg); } }
+@keyframes atom-pendel-a { 0% { transform: rotate(16deg); } 35% { transform: rotate(-9deg); } 65% { transform: rotate(4deg); } 100% { transform: rotate(0); } }
+@keyframes atom-pendel-b { 0% { transform: rotate(-16deg); } 35% { transform: rotate(9deg); } 65% { transform: rotate(-4deg); } 100% { transform: rotate(0); } }
+
+/* ---------- Handy (Seitenkopf) ---------- */
+@media (max-width: 420px) {
+  body.thema-atom .pcw-kopf h1 { font-size: 36px; }
+  body.thema-atom .pcw-wahl button { min-height: 44px; }
+}
+
+/* ---------- Schmale Karte (Handy, aber auch zwei schmale Karten nebeneinander bei ca. 692-780 px) ---------- */
+@container atomkarte (max-width: 379px) {
+  body.thema-atom .at-gehaeuse { --at-hb: 184px; --at-kr: 162px; --at-kn: 106px; --at-ht: 24px; padding: 14px 12px 10px; column-gap: 8px; }
+  body.thema-atom .at-name { font-size: 26px; }
+  body.thema-atom .at-leiste { gap: 9px; padding: 8px; }
+  body.thema-atom .at-vfd { padding: 8px 9px 0; }
+  body.thema-atom .at-vfd-haupt { font-size: 21px; letter-spacing: .06em; }
+  body.thema-atom .at-vfd-sub { font-size: 10px; letter-spacing: .1em; }
+  body.thema-atom .at-lampen { gap: 6px; }
+  body.thema-atom .at-lampe i { width: 25px; height: 25px; }
+  body.thema-atom .at-lampe small { font-size: 9px; letter-spacing: .08em; }
+  body.thema-atom .at-innen { height: 262px; padding-bottom: 33px; }
+  body.thema-atom .at-platte { width: 94px; }
+  body.thema-atom .at-pos-safe { left: 9px; } body.thema-atom .at-pos-arm { right: 11px; }
+  body.thema-atom .at-buegel-l { left: 7px; } body.thema-atom .at-buegel-r { right: 7px; }
+  body.thema-atom .at-segmente { left: 20px; right: 20px; }
+  body.thema-atom .at-danger > b span { font-size: 13px; padding: 3px 7px 1px calc(7px + .12em); }
+  body.thema-atom .at-danger-text { font-size: 11px; padding: 5px 4px 4px; }
+  body.thema-atom .at-key2 { gap: 5px; padding-right: 7px; }
+}
+/* sehr schmal (unter ca. 330 px Kartenbreite): Schildtext und KEY-2-Beschriftung kleiner */
+@container atomkarte (max-width: 329px) {
+  body.thema-atom .at-danger-text { font-size: 10px; letter-spacing: .02em; padding: 4px 3px 3px; }
+  body.thema-atom .at-k2-text small { display: none; }
+}
+/* Kleinsthandy (320 px Viewport): nur noch Schild, kein zweiter Schluessel */
+@container atomkarte (max-width: 300px) {
+  body.thema-atom .at-key2 { display: none; }
+  body.thema-atom .at-danger > b { padding: 3px 2px 2px; }
+  body.thema-atom .at-danger > b span { font-size: 11px; letter-spacing: .06em; padding: 2px 4px 1px calc(4px + .06em); }
+  body.thema-atom .at-danger-text { font-size: 9px; padding: 3px 2px; }
+}
+
+/* ---------- Weniger Bewegung ---------- */
+@media (prefers-reduced-motion: reduce) {
+  body.thema-atom .at-karte *, body.thema-atom .at-karte *::before, body.thema-atom .at-karte *::after,
+  body.thema-atom .at-gehaeuse, body.thema-atom .at-gehaeuse::after { animation: none !important; transition-duration: .01ms !important; }
+  body.thema-atom .at-karte[data-zustand="startet"] .at-rd-spiegel,
+  body.thema-atom .at-karte[data-zustand="stoppt"] .at-rd-spiegel,
+  body.thema-atom .at-zaehlt .at-rd-spiegel { transform: translateX(20%); }
+  body.thema-atom .at-karte[data-zustand="startet"] .at-rd-kuppel,
+  body.thema-atom .at-zaehlt .at-rd-kuppel,
+  body.thema-atom .at-karte[data-zustand="stoppt"] .at-rd-kuppel { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1), 0 0 18px 5px var(--at-glut); }
+  body.thema-atom .at-strahl i { display: none; }
+  body.thema-atom .at-strahl { background: rgba(255, 40, 25, .07); }
+  body.thema-atom .at-karte[data-zustand="stoppt"] .at-strahl { background: rgba(255, 170, 30, .06); }
+  body.thema-atom .at-buehne { transition: none; }
+  body.thema-atom .at-zahl.at-tick .at-sch-zahl { opacity: 1; }
+}

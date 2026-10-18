@@ -1,0 +1,41 @@
+/* Startzentrale – Basis: Seitenraster, Kopf, Design-Umschalter. Designs ueberschreiben nur unter body.thema-<id>. */
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { margin: 0; }
+body {
+  min-height: 100vh; padding: max(28px, env(safe-area-inset-top)) 16px max(40px, env(safe-area-inset-bottom));
+  background: #070708; color: #f5f5f7;
+  font: 15px/1.4 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+  user-select: none; -webkit-user-select: none; overflow-x: hidden;
+}
+.pcw-kopf {
+  max-width: 880px; margin: 0 auto 28px;
+  display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px;
+}
+.pcw-kicker { font-size: 11px; letter-spacing: .32em; font-weight: 600; opacity: .8; }
+.pcw-kopf h1 { margin: 6px 0 0; font-size: 34px; font-weight: 700; letter-spacing: -.02em; }
+
+.pcw-wahl {
+  display: inline-flex; padding: 3px; gap: 2px; border-radius: 12px;
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.08);
+  max-width: 100%;
+}
+.pcw-wahl button {
+  appearance: none; border: 0; background: transparent; color: inherit; opacity: .6;
+  font: 600 12px/1 inherit; font-family: inherit; letter-spacing: .02em;
+  padding: 9px 12px; border-radius: 9px; cursor: pointer; white-space: nowrap;
+}
+.pcw-wahl button[aria-pressed="true"] { background: rgba(255,255,255,.12); opacity: 1; }
+.pcw-wahl button:focus-visible { outline: 2px solid currentColor; outline-offset: 1px; }
+
+.pcw-raster {
+  max-width: 880px; margin: 0 auto; display: grid; gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+}
+.pcw-karte { position: relative; min-width: 0; }
+.pcw-fuss { max-width: 880px; margin: 28px auto 0; font-size: 12px; text-align: center; opacity: .45; }
+
+@media (max-width: 420px) {
+  .pcw-kopf h1 { font-size: 30px; }
+  .pcw-wahl { width: 100%; }
+  .pcw-wahl button { flex: 1; padding: 9px 6px; }
+}

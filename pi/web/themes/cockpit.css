@@ -1,0 +1,495 @@
+/* Design "Cockpit": Engine-Start-Panel im Overhead-Stil (Panelgrau, gravierte Beschriftung mit warmer
+   Integralbeleuchtung ~3200 K, Dzus-Verschlüsse, Annunciators, gesicherter Kippschalter). Alles unter body.thema-cockpit. */
+body.thema-cockpit {
+  --ck-panel-o: #535b62; --ck-panel-u: #454d53; --ck-weiss: #f4efe3; --ck-glimm: rgba(255, 190, 120, .55);
+  --ck-amber: #ffac1c; --ck-gruen: #3ff08c; --ck-blau: #4fc8ff; --ck-cyan: #63e4ff; --ck-rot: #ff3b30;
+  --ck-schrift: "Futura-CondensedMedium", "Futura Condensed Medium", "DIN Condensed", "Roboto Condensed", sans-serif-condensed, "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --ck-ziffer: "DIN Alternate", "Roboto Condensed", "Helvetica Neue", Arial, sans-serif;
+  --ck-rausch: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  .3 0 0 0 -.07'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  color: var(--ck-weiss); font-synthesis: none;
+  background:
+    var(--ck-rausch),
+    radial-gradient(900px 420px at 50% -60px, rgba(255, 186, 110, .10), transparent 70%),
+    radial-gradient(140% 90% at 50% 0%, transparent 55%, rgba(0, 0, 0, .55)),
+    linear-gradient(180deg, #24292d 0, #1a1e21 420px, #121416 100%);
+  background-color: #121416;
+}
+body.thema-cockpit .pcw-kopf, body.thema-cockpit .pcw-raster, body.thema-cockpit .pcw-fuss { position: relative; z-index: 1; }
+
+/* ---------- Kopf: Glareshield ---------- */
+body.thema-cockpit .pcw-kopf { padding-bottom: 22px; margin-bottom: 30px; }
+body.thema-cockpit .pcw-kopf::before {
+  content: ""; position: absolute; z-index: -1; left: 50%; width: 100vw; margin-left: -50vw;
+  top: -60px; bottom: 0;
+  background:
+    var(--ck-rausch),
+    linear-gradient(180deg, #0c0d0e, #141618 70%, #191c1e);
+  border-radius: 0 0 50% 50% / 0 0 26px 26px;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, .07), 0 16px 30px -10px rgba(0, 0, 0, .8);
+}
+body.thema-cockpit .pcw-kicker {
+  display: inline-block; font: 500 11px/1 var(--ck-schrift); letter-spacing: .32em; opacity: 1;
+  padding: 5px 6px 3px 9px; border: 1px solid rgba(244, 239, 227, .5); border-radius: 2px;
+  color: var(--ck-weiss); text-shadow: 0 0 6px var(--ck-glimm);
+}
+body.thema-cockpit .pcw-kopf h1 {
+  margin: 12px 0 0; font: 500 42px/.9 var(--ck-schrift); letter-spacing: .08em; text-transform: uppercase;
+  color: var(--ck-weiss); text-shadow: 0 0 12px rgba(255, 186, 110, .35), 0 1px 0 #000;
+}
+/* Design-Umschalter als Reihe beleuchteter Drucktaster */
+body.thema-cockpit .pcw-wahl {
+  padding: 6px; gap: 6px; border-radius: 6px;
+  background: linear-gradient(180deg, #2c3236, #23282c);
+  border: 1px solid #0b0c0d; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06), 0 6px 14px -6px rgba(0, 0, 0, .8);
+}
+body.thema-cockpit .pcw-wahl button {
+  position: relative; opacity: 1; color: #d9d4c7; border-radius: 3px;
+  font: 500 13px/1 var(--ck-schrift); letter-spacing: .1em; text-transform: uppercase;
+  padding: 13px 12px 17px; min-height: 44px;
+  background: linear-gradient(180deg, #1d2124, #121416);
+  box-shadow: 0 0 0 1px #050606, inset 0 1px 0 rgba(255, 255, 255, .08), 0 2px 0 #0b0c0d;
+}
+body.thema-cockpit .pcw-wahl button::after {
+  content: ""; position: absolute; left: 50%; bottom: 5px; width: 26px; margin-left: -13px; height: 3px; border-radius: 1px;
+  background: #1d3428; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .4);
+}
+body.thema-cockpit .pcw-wahl button[aria-pressed="true"] { background: linear-gradient(180deg, #181b1e, #0e1011); color: var(--ck-weiss); text-shadow: 0 0 6px var(--ck-glimm); transform: translateY(1px); box-shadow: 0 0 0 1px #050606, inset 0 2px 4px rgba(0, 0, 0, .7); }
+body.thema-cockpit .pcw-wahl button[aria-pressed="true"]::after { background: var(--ck-gruen); box-shadow: 0 0 6px var(--ck-gruen), 0 0 14px rgba(63, 240, 140, .5); }
+body.thema-cockpit .pcw-wahl button:focus-visible { outline: 2px solid var(--ck-amber); outline-offset: 2px; }
+body.thema-cockpit .pcw-fuss { font: 500 12px/1 var(--ck-schrift); letter-spacing: .16em; text-transform: uppercase; opacity: .5; }
+
+/* ---------- Panel ---------- */
+body.thema-cockpit .ck-karte {
+  position: relative; overflow: hidden; border-radius: 5px;
+  container-type: inline-size;
+  padding: 22px 26px 24px;
+  padding-inline: clamp(14px, calc(14px + (100% - 330px) * .12), 26px);
+  font-family: var(--ck-schrift);
+  background:
+    radial-gradient(130% 70% at 50% -10%, rgba(255, 220, 170, .10), transparent 60%),
+    linear-gradient(180deg, var(--ck-panel-o), var(--ck-panel-u));
+  box-shadow:
+    0 0 0 1px #0d0f10, inset 0 1px 0 rgba(255, 255, 255, .16), inset 0 -1px 0 rgba(0, 0, 0, .35),
+    inset 1px 0 0 rgba(255, 255, 255, .05), inset -1px 0 0 rgba(0, 0, 0, .2),
+    0 22px 40px -18px rgba(0, 0, 0, .9);
+}
+body.thema-cockpit .ck-karte::before {   /* Lackkorn */
+  content: ""; position: absolute; inset: 0; pointer-events: none; border-radius: inherit;
+  background: var(--ck-rausch); opacity: .8;
+}
+body.thema-cockpit .ck-dzus {
+  position: absolute; width: 13px; height: 13px; border-radius: 50%; z-index: 1;
+  background: radial-gradient(circle at 38% 32%, #e9ecee 0, #a8aeb3 30%, #6d7378 62%, #3b4044 100%);
+  box-shadow: 0 0 0 1.5px #2a2f33, 0 0 0 2.5px rgba(255, 255, 255, .08), 0 1px 2px rgba(0, 0, 0, .6);
+}
+body.thema-cockpit .ck-dzus::after {
+  content: ""; position: absolute; left: 1.5px; right: 1.5px; top: 5.25px; height: 2.5px; border-radius: 1px;
+  background: #1c1f22; box-shadow: 0 1px 0 rgba(255, 255, 255, .35);
+  transform: rotate(var(--ck-dreh, 0deg));
+}
+
+/* Kopfzeile: Name graviert, Master Caution */
+body.thema-cockpit .ck-kopf {
+  position: relative; display: flex; align-items: flex-start; justify-content: space-between; gap: 14px;
+  padding: 2px 4px 14px 12px; margin: 0 2px 18px;
+  border-bottom: 1.5px solid rgba(244, 239, 227, .7);
+  box-shadow: 0 1px 4px -1px rgba(255, 190, 120, .25);
+}
+body.thema-cockpit .ck-titel { min-width: 0; }
+body.thema-cockpit .ck-name {
+  margin: 0; font: 500 27px/1 var(--ck-schrift); letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ck-weiss); text-shadow: 0 0 7px var(--ck-glimm), 0 -1px 0 rgba(0, 0, 0, .45);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+body.thema-cockpit .ck-info {
+  margin-top: 5px; font: 500 12px/1 var(--ck-schrift); letter-spacing: .22em; text-transform: uppercase;
+  color: rgba(244, 239, 227, .78); text-shadow: 0 0 5px rgba(255, 190, 120, .35);
+}
+body.thema-cockpit .ck-mc {
+  flex: none; position: relative; width: 66px; height: 46px; margin-right: 10px; padding: 0; cursor: pointer;
+  border: 0; border-radius: 4px; color: #4b4232; font: 500 15px/1 var(--ck-schrift); letter-spacing: .12em;
+  background: linear-gradient(180deg, #1b1c1b, #0c0c0b);
+  box-shadow: 0 0 0 1px #050505, 0 0 0 4px #2a2f33, 0 0 0 5px #15181a, inset 0 1px 0 rgba(255, 255, 255, .07), 0 4px 7px 2px rgba(0, 0, 0, .35);
+  transition: transform .08s;
+}
+body.thema-cockpit .ck-mc span { display: grid; gap: 3px; justify-items: center; padding-left: .12em; }
+body.thema-cockpit .ck-mc small { font-size: 9px; letter-spacing: .2em; padding-left: .2em; }
+body.thema-cockpit .ck-mc::after { content: ""; position: absolute; inset: 1px; border-radius: 3px; pointer-events: none; background: linear-gradient(165deg, rgba(255, 255, 255, .12), transparent 45%); }
+body.thema-cockpit .ck-mc-druck .ck-mc { transform: scale(.95); }
+body.thema-cockpit .ck-mc:focus-visible { outline: 2px solid var(--ck-amber); outline-offset: 6px; }
+body.thema-cockpit .ck-caution .ck-mc, body.thema-cockpit .ck-lampentest .ck-mc {
+  color: #ffd27a; text-shadow: 0 0 6px var(--ck-amber), 0 0 14px rgba(255, 172, 28, .7);
+  background: radial-gradient(90% 90% at 50% 50%, #7a4a07, #2a1803 85%);
+  box-shadow: 0 0 0 1px #050505, 0 0 0 4px #2a2f33, 0 0 0 5px #15181a, 0 0 22px 4px rgba(255, 172, 28, .45);
+}
+body.thema-cockpit .ck-caution .ck-mc { animation: cockpit-mc 1.6s ease-in-out infinite; }
+@keyframes cockpit-mc { 50% { box-shadow: 0 0 0 1px #050505, 0 0 0 4px #2a2f33, 0 0 0 5px #15181a, 0 0 30px 8px rgba(255, 172, 28, .55); } }
+
+/* ---------- Mitte ---------- */
+body.thema-cockpit .ck-mitte { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 12px 44px; padding-right: 22px; }
+body.thema-cockpit .ck-links { display: grid; gap: 22px; justify-items: center; padding-top: 6px; }
+
+/* Annunciators (Farben je Lampe fest hinterlegt, kein color-mix: läuft auch auf älterem iOS) */
+body.thema-cockpit .ck-lampen { display: grid; grid-template-columns: repeat(2, 58px); gap: 9px; padding: 7px; border-radius: 4px;
+  background: #1f2326; box-shadow: inset 0 1px 3px rgba(0, 0, 0, .7), 0 1px 0 rgba(255, 255, 255, .1); }
+body.thema-cockpit .ck-lampe {
+  --ck-lc: #ffac1c; --ck-lt: #ffbd49; --ck-l30: rgba(255, 172, 28, .3); --ck-l55: rgba(255, 172, 28, .55); --ck-l70: rgba(255, 172, 28, .7);
+  position: relative; height: 36px; border-radius: 2px; display: grid; place-items: center; overflow: hidden;
+  background: linear-gradient(180deg, #121415, #1a1d1f);
+  box-shadow: 0 0 0 1px #050606, inset 0 -8px 12px rgba(0, 0, 0, .55), inset 0 1px 0 rgba(255, 255, 255, .05);
+}
+body.thema-cockpit .ck-l-armed { --ck-lc: #4fc8ff; --ck-lt: #72d3ff; --ck-l30: rgba(79, 200, 255, .3); --ck-l55: rgba(79, 200, 255, .55); --ck-l70: rgba(79, 200, 255, .7); }
+body.thema-cockpit .ck-l-avail { --ck-lc: #3ff08c; --ck-lt: #65f3a3; --ck-l30: rgba(63, 240, 140, .3); --ck-l55: rgba(63, 240, 140, .55); --ck-l70: rgba(63, 240, 140, .7); }
+body.thema-cockpit .ck-lampe::before {     /* Leuchtkörper hinter der Streuscheibe */
+  content: ""; position: absolute; inset: 0; opacity: 0; transition: opacity .12s;
+  background: radial-gradient(110% 120% at 50% 55%, var(--ck-l30), transparent 75%);
+}
+body.thema-cockpit .ck-lampe::after {      /* Glasreflex */
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(172deg, rgba(255, 255, 255, .13), rgba(255, 255, 255, .02) 42%, transparent 60%);
+}
+body.thema-cockpit .ck-lampe span {
+  position: relative; display: grid; gap: 2px; text-align: center;
+  font: 500 13px/1 var(--ck-schrift); letter-spacing: .08em; padding-left: .08em; color: #43484c;
+  transition: color .12s, text-shadow .12s;
+}
+body.thema-cockpit .ck-lampe small { font-size: 8px; letter-spacing: .1em; }
+body.thema-cockpit .ck-karte[data-armed="true"] .ck-l-armed,
+body.thema-cockpit .ck-karte[data-zustand="startet"] .ck-l-start,
+body.thema-cockpit .ck-karte[data-zustand="an"] .ck-l-avail,
+body.thema-cockpit .ck-karte[data-zustand="stoppt"] .ck-l-shut,
+body.thema-cockpit .ck-lampentest .ck-lampe { box-shadow: 0 0 0 1px #050606, 0 0 16px -2px var(--ck-l55), inset 0 -8px 12px rgba(0, 0, 0, .35); }
+body.thema-cockpit .ck-karte[data-armed="true"] .ck-l-armed::before,
+body.thema-cockpit .ck-karte[data-zustand="startet"] .ck-l-start::before,
+body.thema-cockpit .ck-karte[data-zustand="an"] .ck-l-avail::before,
+body.thema-cockpit .ck-karte[data-zustand="stoppt"] .ck-l-shut::before,
+body.thema-cockpit .ck-lampentest .ck-lampe::before { opacity: 1; }
+body.thema-cockpit .ck-karte[data-armed="true"] .ck-l-armed span,
+body.thema-cockpit .ck-karte[data-zustand="startet"] .ck-l-start span,
+body.thema-cockpit .ck-karte[data-zustand="an"] .ck-l-avail span,
+body.thema-cockpit .ck-karte[data-zustand="stoppt"] .ck-l-shut span,
+body.thema-cockpit .ck-lampentest .ck-lampe span { color: var(--ck-lt); text-shadow: 0 0 5px var(--ck-lc), 0 0 12px var(--ck-l70); }
+body.thema-cockpit .ck-karte[data-zustand="startet"] .ck-l-start::before,
+body.thema-cockpit .ck-karte[data-zustand="stoppt"] .ck-l-shut::before { animation: cockpit-blink 1s steps(1, end) infinite; }
+body.thema-cockpit .ck-karte[data-zustand="startet"] .ck-l-start span,
+body.thema-cockpit .ck-karte[data-zustand="stoppt"] .ck-l-shut span { animation: cockpit-blink-t 1s steps(1, end) infinite; }
+@keyframes cockpit-blink { 60% { opacity: .08; } }
+@keyframes cockpit-blink-t { 60% { color: #6a5530; text-shadow: none; } }
+
+/* Instrument */
+body.thema-cockpit .ck-instr {
+  position: relative; width: 124px; height: 124px; border-radius: 10px;
+  background:
+    radial-gradient(circle at 10px 10px, #9aa0a5 0 2.4px, #2a2e31 2.9px, transparent 3.6px),
+    radial-gradient(circle at calc(100% - 10px) 10px, #9aa0a5 0 2.4px, #2a2e31 2.9px, transparent 3.6px),
+    radial-gradient(circle at 10px calc(100% - 10px), #9aa0a5 0 2.4px, #2a2e31 2.9px, transparent 3.6px),
+    radial-gradient(circle at calc(100% - 10px) calc(100% - 10px), #9aa0a5 0 2.4px, #2a2e31 2.9px, transparent 3.6px),
+    linear-gradient(180deg, #2b3034, #1e2225);
+  box-shadow: 0 0 0 1px #0d0f10, inset 0 1px 0 rgba(255, 255, 255, .08), 0 3px 6px rgba(0, 0, 0, .35);
+}
+body.thema-cockpit .ck-ring {
+  position: absolute; inset: 7px; border-radius: 50%;
+  background: conic-gradient(from 210deg, #15181a, #4b5156, #1d2023, #3d4247, #15181a, #50565b, #15181a);
+  box-shadow: 0 0 0 1px #050606, inset 0 0 0 1px rgba(255, 255, 255, .06);
+}
+body.thema-cockpit .ck-ring svg { position: absolute; inset: 4px; width: calc(100% - 8px); height: calc(100% - 8px); overflow: visible; }
+body.thema-cockpit .ck-zifferblatt { fill: #0b0c0d; stroke: #000; stroke-width: 1; }
+body.thema-cockpit .ck-bogen { fill: none; stroke: rgba(244, 239, 227, .55); stroke-width: .8; }
+body.thema-cockpit .ck-tg { stroke: #f4efe3; stroke-width: 1.9; }
+body.thema-cockpit .ck-tk { stroke: rgba(244, 239, 227, .7); stroke-width: 1; }
+body.thema-cockpit .ck-rot { stroke: #ff2b2b; stroke-width: 2.6; }
+body.thema-cockpit .ck-zahl { fill: var(--ck-weiss); font: 500 12px/1 var(--ck-schrift); text-anchor: middle; }
+body.thema-cockpit .ck-einheit { fill: rgba(244, 239, 227, .8); font: 500 9px/1 var(--ck-schrift); letter-spacing: .1em; text-anchor: middle; }
+body.thema-cockpit .ck-einheit.ck-klein { font-size: 6.5px; fill: rgba(244, 239, 227, .55); }
+body.thema-cockpit .ck-fenster { fill: #020303; stroke: #3a3f43; stroke-width: .8; }
+body.thema-cockpit .ck-n2 { fill: #f4f6f8; font: 700 11.5px/1 var(--ck-ziffer); text-anchor: end; font-variant-numeric: tabular-nums; }
+body.thema-cockpit .ck-karte[data-zustand="startet"] .ck-n2, body.thema-cockpit .ck-karte[data-zustand="stoppt"] .ck-n2 { fill: #ffd27a; }
+body.thema-cockpit .ck-nadel { fill: #f7f5ef; filter: drop-shadow(1px 1.5px 1px rgba(0, 0, 0, .8)); }
+body.thema-cockpit .ck-nadel-schwanz { fill: #2a2e31; }
+body.thema-cockpit .ck-nabe { fill: #1b1e21; stroke: #4b5156; stroke-width: 1; }
+body.thema-cockpit .ck-nabe-licht { fill: rgba(255, 255, 255, .35); }
+body.thema-cockpit .ck-glas {
+  position: absolute; inset: 0; border-radius: 50%; pointer-events: none;
+  background: linear-gradient(145deg, rgba(255, 255, 255, .16), rgba(255, 255, 255, .03) 38%, transparent 52%),
+              radial-gradient(circle at 50% 50%, transparent 62%, rgba(0, 0, 0, .45) 100%);
+}
+body.thema-cockpit .ck-flagge {
+  position: absolute; left: 11px; top: 33px; width: 36px; height: 15px; border-radius: 1px;
+  display: grid; place-items: center; font: 500 10px/1 var(--ck-schrift); letter-spacing: .08em; color: #111;
+  background: repeating-linear-gradient(-45deg, #e52d2d 0 3.5px, #f2efe8 3.5px 7px);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .7);
+  transform: translateX(-26px) rotate(-8deg); opacity: 0; transition: transform .35s, opacity .2s;
+}
+body.thema-cockpit .ck-flagge::before { content: ""; position: absolute; inset: 3px 4px; background: #f2efe8; z-index: -1; }
+body.thema-cockpit .ck-karte[data-zustand="unbekannt"] .ck-flagge { transform: none; opacity: 1; }
+body.thema-cockpit .ck-karte[data-zustand="unbekannt"] .ck-flagge { isolation: isolate; }
+
+/* ---------- Kippschalter mit Schutzklappe ---------- */
+body.thema-cockpit .ck-schalter { position: relative; flex: none; width: 170px; height: 246px; margin-top: 12px; }
+body.thema-cockpit .ck-gruppe {
+  position: absolute; left: 0; width: 104px; top: 222px; display: flex; align-items: center; justify-content: center; gap: 6px;
+  font: 500 12px/1 var(--ck-schrift); letter-spacing: .2em; padding-left: .2em; color: var(--ck-weiss); text-shadow: 0 0 6px var(--ck-glimm);
+}
+body.thema-cockpit .ck-gruppe::before, body.thema-cockpit .ck-gruppe::after {
+  content: ""; width: 9px; height: 7px; border-bottom: 1.5px solid rgba(244, 239, 227, .7); margin-bottom: 6px;
+}
+body.thema-cockpit .ck-gruppe::before { border-left: 1.5px solid rgba(244, 239, 227, .7); }
+body.thema-cockpit .ck-gruppe::after { border-right: 1.5px solid rgba(244, 239, 227, .7); }
+body.thema-cockpit .ck-buehne {
+  position: absolute; left: 0; top: 0; width: 104px; height: 246px;
+  perspective: 860px; perspective-origin: -70px 240px;
+}
+body.thema-cockpit .ck-3d { position: absolute; inset: 10px 0 -10px; transform-style: preserve-3d; }   /* 10 px Luft für die offene Klappe */
+body.thema-cockpit .ck-3d > div { position: absolute; }
+
+/* Grundplatte (schwarz lackierter Stahlwinkel) mit zwei Schrauben */
+body.thema-cockpit .ck-platte {
+  left: 16px; top: 60px; width: 72px; height: 142px; border-radius: 4px;
+  background:
+    radial-gradient(circle at 12px calc(100% - 11px), #8e9499 0 2.6px, #24282b 3.1px, transparent 3.8px),
+    radial-gradient(circle at calc(100% - 12px) calc(100% - 11px), #8e9499 0 2.6px, #24282b 3.1px, transparent 3.8px),
+    linear-gradient(160deg, #31363a, #1c1f22 60%, #17191b);
+  box-shadow: 0 0 0 1px #0a0b0c, inset 0 1px 0 rgba(255, 255, 255, .12), 2px 4px 8px rgba(0, 0, 0, .55);
+}
+body.thema-cockpit .ck-platte::before, body.thema-cockpit .ck-platte::after {   /* Kreuzschlitz */
+  content: ""; position: absolute; bottom: 9.5px; width: 4px; height: 1.2px; background: #24282b;
+  box-shadow: 0 0 0 0 transparent; transform: rotate(35deg);
+}
+body.thema-cockpit .ck-platte::before { left: 10px; }
+body.thema-cockpit .ck-platte::after { right: 10px; transform: rotate(-20deg); }
+body.thema-cockpit .ck-scheibe { left: 32px; top: 112px; width: 40px; height: 40px; border-radius: 50%;
+  background: radial-gradient(circle, transparent 13px, #4d5358 13.5px, #8a9095 16px, #42474c 19px, transparent 20px);
+  transform: translateZ(1px); }
+body.thema-cockpit .ck-mutter {
+  left: 37px; top: 117px; width: 30px; height: 30px; transform: translateZ(3px);
+  clip-path: polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0 50%);
+  background: conic-gradient(from -30deg, #c8cdd1 0 60deg, #9aa0a5 60deg 120deg, #5c6166 120deg 180deg, #3e4246 180deg 240deg, #6f757a 240deg 300deg, #e3e6e8 300deg 360deg);
+}
+body.thema-cockpit .ck-buchse {
+  left: 43px; top: 123px; width: 18px; height: 18px; border-radius: 50%; transform: translateZ(6px);
+  background: repeating-radial-gradient(circle, #7f858a 0 1px, #b9bec2 1px 2px), #8a9095;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .5), 0 1px 2px rgba(0, 0, 0, .6);
+}
+body.thema-cockpit .ck-buchse::after { content: ""; position: absolute; inset: 5px; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #33373a, #0b0c0d); }
+
+/* Hebel: verchromter, flacher Bat-Handle (Paddel), kippt um die Buchse */
+body.thema-cockpit .ck-hebel {
+  left: 52px; top: 132px; width: 0; height: 0; transform-style: preserve-3d;
+  transform: translateZ(7px) rotateX(88deg);
+  transition: transform .1s cubic-bezier(.6, 0, .9, .55);
+}
+body.thema-cockpit .ck-karte[data-hebel="oben"] .ck-hebel { transform: translateZ(7px) rotateX(128deg); }
+body.thema-cockpit .ck-karte[data-hebel="unten"] .ck-hebel { transform: translateZ(7px) rotateX(48deg); }
+body.thema-cockpit .ck-karte[data-hebel="mitte"] .ck-hebel { transition: transform .16s cubic-bezier(.3, 1.6, .55, 1); }
+body.thema-cockpit .ck-karte[data-zug="true"] .ck-hebel { transform: translateZ(7px) rotateX(calc(88deg + var(--ck-zug, 0) * 24deg)); transition: none; }
+body.thema-cockpit .ck-schaft {          /* Paddel: schmal an der Buchse, zum Ende breiter, abgerundet */
+  position: absolute; left: -7px; top: 0; width: 14px; height: 31px;
+  clip-path: polygon(34% 0, 66% 0, 90% 70%, 99% 84%, 97% 94%, 86% 100%, 14% 100%, 3% 94%, 1% 84%, 10% 70%);
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, .35), transparent 30%),
+    linear-gradient(90deg, #3d4246 0%, #a9afb4 13%, #f5f7f8 30%, #d2d6d9 46%, #8a9095 64%, #c3c8cc 82%, #50555a 100%);
+}
+body.thema-cockpit .ck-karte[data-offen="false"] .ck-schaft { visibility: hidden; transition: visibility 0s .2s; }
+body.thema-cockpit .ck-kappe {           /* Stirnseite des Paddels, schaut immer zum Betrachter */
+  position: absolute; left: -7.5px; top: 25.5px; width: 15px; height: 7px; border-radius: 3.5px / 3px;
+  background: linear-gradient(180deg, #ffffff 0, #e3e7ea 30%, #9aa0a5 62%, #4c5155 100%);
+  box-shadow: 0 0 0 .6px rgba(0, 0, 0, .55), inset 0 -1px 0 rgba(0, 0, 0, .25);
+  transform: rotateX(-88deg);
+  transition: transform .1s cubic-bezier(.6, 0, .9, .55);
+}
+body.thema-cockpit .ck-karte[data-hebel="oben"] .ck-kappe { transform: rotateX(-128deg); }
+body.thema-cockpit .ck-karte[data-hebel="unten"] .ck-kappe { transform: rotateX(-48deg); }
+body.thema-cockpit .ck-karte[data-hebel="mitte"] .ck-kappe { transition: transform .16s cubic-bezier(.3, 1.6, .55, 1); }
+body.thema-cockpit .ck-karte[data-zug="true"] .ck-kappe { transform: rotateX(calc(-88deg - var(--ck-zug, 0) * 24deg)); transition: none; }
+body.thema-cockpit .ck-h-schatten {
+  left: 46px; top: 130px; width: 14px; height: 20px; border-radius: 7px; background: rgba(0, 0, 0, .55);
+  filter: blur(3px); transform: translateZ(1.5px) translate(5px, 3px); transform-origin: 50% 0;
+  transition: transform .12s;
+}
+body.thema-cockpit .ck-karte[data-hebel="oben"] .ck-h-schatten { transform: translateZ(1.5px) translate(7px, -20px) scaleY(1.4); }
+body.thema-cockpit .ck-karte[data-hebel="unten"] .ck-h-schatten { transform: translateZ(1.5px) translate(5px, 6px) scaleY(1.5); }
+
+/* Scharnier */
+body.thema-cockpit .ck-scharnier {
+  left: 19px; top: 63px; width: 66px; height: 11px; border-radius: 5px; transform: translateZ(5px);
+  background:
+    repeating-linear-gradient(90deg, transparent 0 16px, rgba(0, 0, 0, .55) 16px 17px),
+    linear-gradient(180deg, #5f656a, #d5d9dc 32%, #8a9095 58%, #33373b 100%);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, .6);
+}
+
+/* Schutzklappe: gegossener, einfarbig roter Deckel (rot = irreversibel), Scharnier oben, federnd.
+   Masse: 60 breit, 106 lang, 42 hoch. Offen steht sie über 90° und zeigt ihre hohle Unterseite. */
+body.thema-cockpit .ck-klappe {
+  left: 22px; top: 68px; width: 60px; height: 106px; transform-style: preserve-3d;
+  transform-origin: 50% 0; transform: rotateX(0deg);
+  transition: transform .2s cubic-bezier(.55, 0, 1, .45);
+}
+body.thema-cockpit .ck-karte[data-offen="true"] .ck-klappe { transform: rotateX(108deg); transition: transform .46s cubic-bezier(.22, 1.45, .45, 1); }
+body.thema-cockpit .ck-klappe > i { position: absolute; display: block; }
+body.thema-cockpit .ck-k-front {
+  inset: 0; transform: translateZ(42px); backface-visibility: hidden; border-radius: 3px 3px 6px 6px;
+  background:
+    linear-gradient(104deg, transparent 20%, rgba(255, 255, 255, .24) 33%, rgba(255, 255, 255, .05) 45%, transparent 54%),
+    radial-gradient(120% 60% at 50% 0%, rgba(255, 255, 255, .10), transparent 70%),
+    linear-gradient(180deg, #e8363f 0%, #cf1f29 18%, #b5141e 64%, #970e17 100%);
+  box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, .42), inset 0 -2px 0 rgba(255, 140, 140, .25), inset 2px 0 0 rgba(255, 255, 255, .12), inset -2px 0 0 rgba(0, 0, 0, .2),
+              inset 0 0 0 3px rgba(120, 0, 8, .18);
+}
+body.thema-cockpit .ck-k-front::before {   /* gegossene Grifflippe am freien Ende */
+  content: ""; position: absolute; left: 3px; right: 3px; bottom: 3px; height: 13px; border-radius: 2px 2px 4px 4px;
+  background: linear-gradient(180deg, rgba(60, 0, 4, .45) 0, rgba(60, 0, 4, .12) 2px, rgba(255, 255, 255, .22) 3.5px, rgba(255, 255, 255, .06) 7px, rgba(70, 0, 6, .28) 100%);
+}
+body.thema-cockpit .ck-k-front::after {    /* drei Griffrippen über der Lippe */
+  content: ""; position: absolute; left: 16px; right: 16px; bottom: 21px; height: 9px;
+  background: repeating-linear-gradient(180deg, rgba(70, 0, 6, .5) 0 1px, rgba(255, 255, 255, .2) 1px 2px, transparent 2px 3.5px);
+  border-radius: 1px; opacity: .9;
+}
+body.thema-cockpit .ck-k-innen {           /* hohle Unterseite des Deckels */
+  inset: 0; transform: translateZ(41.5px) rotateY(180deg); backface-visibility: hidden; border-radius: 3px;
+  background:
+    radial-gradient(70% 45% at 50% 80%, rgba(255, 120, 110, .22), transparent 70%),
+    linear-gradient(180deg, #3a080c, #61090f 50%, #7f0f17);
+  box-shadow: inset 0 0 12px rgba(0, 0, 0, .6), inset 0 0 0 1.5px rgba(200, 40, 50, .5);
+}
+body.thema-cockpit .ck-k-l, body.thema-cockpit .ck-k-r {
+  top: 0; width: 42px; height: 106px; transform-origin: 0 50%; transform: rotateY(-90deg);
+}
+body.thema-cockpit .ck-k-l { left: 0; background: linear-gradient(90deg, #5e070d, #9b111a 62%, #c22630 96%, #e0525a); }   /* Aussenseite links */
+body.thema-cockpit .ck-klappe > .ck-k-l, body.thema-cockpit .ck-klappe > .ck-k-r, body.thema-cockpit .ck-klappe > .ck-k-o { backface-visibility: hidden; }
+body.thema-cockpit .ck-klappe > .ck-k-li, body.thema-cockpit .ck-klappe > .ck-k-ri {
+  top: 0; width: 42px; height: 106px; transform-origin: 0 50%; backface-visibility: hidden;
+  transform: rotateY(-90deg) rotateY(180deg) translateX(-42px);
+}
+body.thema-cockpit .ck-k-li { left: 0; background: linear-gradient(90deg, #36070b, #560910 40%, #8a0f17 90%, #d23a43); }  /* innen links, rechts = Rand */
+body.thema-cockpit .ck-k-ri { left: 60px; background: linear-gradient(90deg, #9b111a, #861019 40%, #5c070d); }            /* Aussenseite rechts */
+body.thema-cockpit .ck-k-r { left: 60px; background: linear-gradient(90deg, #d23a43, #8a0f17 10%, #560910 60%, #36070b); }  /* innen rechts, links = Rand */
+body.thema-cockpit .ck-klappe > .ck-k-oi {
+  left: 0; top: 0; width: 60px; height: 42px; transform-origin: 50% 0; backface-visibility: hidden;
+  transform: rotateX(90deg) rotateX(180deg) translateY(-42px);
+  background: linear-gradient(180deg, #2a060a, #4e0910 70%, #a3141d);
+}
+body.thema-cockpit .ck-k-u, body.thema-cockpit .ck-k-o {
+  left: 0; width: 60px; height: 42px; transform-origin: 50% 0; transform: rotateX(90deg);
+  background: linear-gradient(180deg, #4d050a, #8a0f17 75%, #a81822);
+}
+body.thema-cockpit .ck-k-u {               /* Stirnseite am freien Ende: oben die helle Gusskante */
+  top: 106px; border-radius: 0 0 3px 3px;
+  background:
+    linear-gradient(180deg, #ff8a90 0, #e2414a 2.5px, #c11a24 6px, #a3121b 45%, #860c14 100%),
+    #a3121b;
+  box-shadow: inset 1.5px 0 0 rgba(255, 255, 255, .14), inset -1.5px 0 0 rgba(0, 0, 0, .2);
+}
+body.thema-cockpit .ck-k-o { top: 0; }
+body.thema-cockpit .ck-k-schatten {
+  left: 22px; top: 70px; width: 60px; height: 106px; border-radius: 6px; background: rgba(0, 0, 0, .6);
+  filter: blur(7px); transform: translateZ(.5px) translate(7px, 9px); transform-origin: 50% 0;
+  transition: transform .2s, opacity .2s;
+}
+body.thema-cockpit .ck-karte[data-offen="true"] .ck-k-schatten { transform: translateZ(.5px) translate(4px, -4px) scaleY(.16); opacity: .7; transition: transform .4s, opacity .4s; }
+
+/* Positionsbeschriftung, Halteanzeige, INOP-Plakette */
+body.thema-cockpit .ck-skala { position: absolute; left: 104px; top: 10px; right: 0; height: 236px; pointer-events: none; }
+body.thema-cockpit .ck-pos {
+  position: absolute; left: 0; display: flex; align-items: center; gap: 6px; height: 16px; margin-top: -8px;
+  font: 500 15px/1 var(--ck-schrift); letter-spacing: .1em; color: var(--ck-weiss); text-shadow: 0 0 6px var(--ck-glimm);
+}
+body.thema-cockpit .ck-pos::before { content: ""; width: 12px; height: 1.5px; background: rgba(244, 239, 227, .75); }
+body.thema-cockpit .ck-pos-start { top: 92px; }
+body.thema-cockpit .ck-pos-off { top: 132px; font-size: 12px; color: rgba(244, 239, 227, .75); }
+body.thema-cockpit .ck-pos-stop { top: 172px; }
+body.thema-cockpit .ck-halte {
+  position: absolute; left: 18px; top: 188px; width: 44px; height: 7px; border-radius: 2px; overflow: hidden;
+  background: #0b0c0d; box-shadow: 0 0 0 1px #050606, 0 1px 0 rgba(255, 255, 255, .12);
+}
+body.thema-cockpit .ck-halte i {
+  display: block; height: 100%; width: calc(var(--ck-p, 0) * 100%);
+  background: repeating-linear-gradient(90deg, var(--ck-amber) 0 3px, transparent 3px 4px);
+  box-shadow: 0 0 6px var(--ck-amber);
+}
+body.thema-cockpit .ck-kein-aus .ck-halte { display: none; }
+body.thema-cockpit .ck-inop {
+  display: none; position: absolute; left: 9px; top: 163px; padding: 3px 5px 2px; border-radius: 1px;
+  font: 500 13px/1 var(--ck-schrift); letter-spacing: .14em; color: #c7161f;
+  background: linear-gradient(180deg, #f8f5ec, #e7e2d4); box-shadow: 0 0 0 1.5px #c7161f inset, 1px 2px 3px rgba(0, 0, 0, .5);
+  transform: rotate(-7deg);
+}
+body.thema-cockpit .ck-kein-aus .ck-inop { display: block; }
+
+/* Bedienflächen (unsichtbar, über der Bühne) */
+body.thema-cockpit .ck-zone {
+  position: absolute; left: 0; right: 0; z-index: 5; margin: 0; padding: 0; border: 0; border-radius: 6px;
+  background: transparent; cursor: pointer; touch-action: manipulation; -webkit-touch-callout: none;
+}
+body.thema-cockpit .ck-z-stop, body.thema-cockpit .ck-z-start { touch-action: none; }   /* Ziehen/Halten darf nicht scrollen */
+body.thema-cockpit .ck-karte[data-armed="true"][data-zustand="aus"] .ck-z-start,
+body.thema-cockpit .ck-karte[data-armed="true"][data-zustand="unbekannt"] .ck-z-start { cursor: grab; }
+body.thema-cockpit .ck-karte[data-zug="true"] .ck-zone { cursor: grabbing; }
+body.thema-cockpit .ck-zone:focus-visible { outline: 2px dashed var(--ck-amber); outline-offset: -2px; }
+body.thema-cockpit .ck-z-klappe { top: -20px; bottom: 0; }
+body.thema-cockpit .ck-z-start, body.thema-cockpit .ck-z-stop { display: none; }
+body.thema-cockpit .ck-karte[data-offen="true"] .ck-z-klappe { top: -20px; bottom: auto; height: 94px; }
+body.thema-cockpit .ck-karte[data-offen="true"] .ck-z-start { display: block; top: 74px; height: 68px; }
+body.thema-cockpit .ck-karte[data-offen="true"] .ck-z-stop { display: block; top: 142px; bottom: 0; }
+body.thema-cockpit .ck-zone[aria-disabled="true"] { cursor: default; }
+
+/* Rütteln (gesperrt) */
+body.thema-cockpit .ck-ruetteln .ck-3d { animation: cockpit-ruetteln .4s linear; }
+@keyframes cockpit-ruetteln { 15% { transform: translateX(-2px); } 35% { transform: translateX(2px); } 55% { transform: translateX(-1.5px); } 75% { transform: translateX(1px); } }
+
+/* ---------- Meldungszeile (EICAS-Stil) ---------- */
+body.thema-cockpit .ck-display {
+  position: relative; margin-top: 18px; min-height: 42px; display: flex; align-items: center; flex-wrap: wrap; gap: 4px 12px;
+  padding: 9px 14px; border-radius: 3px; overflow: hidden;
+  background: #050607; font: 700 13px/1.25 var(--ck-ziffer);
+  box-shadow: 0 0 0 1px #000, 0 0 0 4px #2b3034, 0 0 0 5px #15181a, inset 0 0 20px rgba(0, 0, 0, .9);
+}
+body.thema-cockpit .ck-display::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(175deg, rgba(255, 255, 255, .07), transparent 45%),
+              repeating-linear-gradient(180deg, rgba(255, 255, 255, .018) 0 1px, transparent 1px 3px);
+}
+body.thema-cockpit .ck-d-status { font-weight: 700; letter-spacing: .1em; color: #f2f2f2; white-space: nowrap; }
+body.thema-cockpit .ck-karte[data-zustand="an"] .ck-d-status { color: var(--ck-gruen); text-shadow: 0 0 8px rgba(63, 240, 140, .45); }
+body.thema-cockpit .ck-karte[data-zustand="startet"] .ck-d-status,
+body.thema-cockpit .ck-karte[data-zustand="stoppt"] .ck-d-status { color: var(--ck-amber); text-shadow: 0 0 8px rgba(255, 172, 28, .45); }
+body.thema-cockpit .ck-karte[data-zustand="unbekannt"] .ck-d-status { color: rgba(242, 242, 242, .6); }
+body.thema-cockpit .ck-d-text { flex: 1 1 140px; min-width: 0; color: var(--ck-cyan); font-weight: 700; letter-spacing: .02em; }
+body.thema-cockpit .ck-d-text.ck-notiz { color: #f2f2f2; }
+body.thema-cockpit .ck-d-text.ck-fehler { color: var(--ck-amber); }
+body.thema-cockpit .ck-d-zeit { color: var(--ck-amber); font-variant-numeric: tabular-nums; letter-spacing: .06em; }
+body.thema-cockpit .ck-d-zeit:empty { display: none; }
+
+/* ---------- Schmale Karten (Handy, iPad hochkant, halbes Fenster): nach Kartenbreite, nicht nach Fenster ---------- */
+@media (max-width: 420px) {
+  body.thema-cockpit .pcw-kopf h1 { font-size: 36px; }
+  body.thema-cockpit .pcw-wahl button { padding: 13px 4px 17px; font-size: 12px; letter-spacing: .06em; }
+}
+@container (max-width: 374px) {
+  body.thema-cockpit .ck-kopf { padding-left: 10px; margin-bottom: 14px; }
+  body.thema-cockpit .ck-name { font-size: 24px; }
+  body.thema-cockpit .ck-mc { margin-right: 6px; }
+  body.thema-cockpit .ck-mitte { gap: 10px 6px; justify-content: space-between; padding-right: 0; }
+  body.thema-cockpit .ck-lampen { grid-template-columns: repeat(2, 54px); gap: 7px; padding: 6px; }
+  body.thema-cockpit .ck-instr { width: 118px; height: 118px; }
+  body.thema-cockpit .ck-display { padding: 8px 12px; min-height: 52px; }
+}
+@container (max-width: 302px) {
+  body.thema-cockpit .ck-name { font-size: 22px; }
+  body.thema-cockpit .ck-lampen { grid-template-columns: repeat(2, 50px); }
+  body.thema-cockpit .ck-lampe span { font-size: 12px; }
+  body.thema-cockpit .ck-instr { width: 112px; height: 112px; }
+  body.thema-cockpit .ck-schalter { width: 160px; }
+  body.thema-cockpit .ck-pos { gap: 4px; }
+  body.thema-cockpit .ck-pos::before { width: 8px; }
+  body.thema-cockpit .ck-halte { left: 12px; width: 40px; }
+  body.thema-cockpit .ck-inop { left: 4px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.thema-cockpit .ck-klappe, body.thema-cockpit .ck-hebel, body.thema-cockpit .ck-kappe,
+  body.thema-cockpit .ck-h-schatten, body.thema-cockpit .ck-k-schatten, body.thema-cockpit .ck-flagge,
+  body.thema-cockpit .ck-lampe::before, body.thema-cockpit .ck-lampe span { transition: none !important; }
+  body.thema-cockpit .ck-karte *, body.thema-cockpit .ck-karte *::before, body.thema-cockpit .ck-karte *::after { animation: none !important; }
+}
+body.thema-cockpit .ck-stift { fill: #6b7176; stroke: #000; stroke-width: .5; }

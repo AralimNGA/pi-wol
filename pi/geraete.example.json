@@ -1,0 +1,24 @@
+[
+  {
+    "id": "pc",
+    "name": "Render-PC",
+    "info": "RTX 5090",
+    "mac": "02:00:00:00:00:01",
+    "lan_ip": "192.168.1.50",
+    "ts_ip": "100.64.0.1",
+    "broadcast": "192.168.1.255",
+    "ssh": "user@100.64.0.1",
+    "aus_befehl": "shutdown /s /t 5"
+  },
+  {
+    "id": "thinkpad",
+    "name": "ThinkPad",
+    "info": "Dock · LAN",
+    "mac": "02:00:00:00:00:02",
+    "lan_ip": "192.168.1.51",
+    "ts_ip": "100.64.0.2",
+    "broadcast": "192.168.1.255",
+    "ssh": null,
+    "aus_befehl": "shutdown /s /t 5"
+  }
+]

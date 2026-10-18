@@ -1,0 +1,15 @@
+# Echte Geraeteliste (MAC-, LAN- und Tailscale-Adressen, SSH-Login) bleibt lokal
+pi/geraete.json
+
+# Screenshot-Werkzeug: Chrome-Profile und Arbeitsaufnahmen
+tools/chrome-prof-*/
+shots/
+
+# Raspberry-Pi-OS-Images und Kartenreste
+*.img
+*.img.xz
+network-config
+user-data
+
+__pycache__/
+.DS_Store

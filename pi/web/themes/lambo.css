@@ -1,0 +1,363 @@
+/* Design "Supersportwagen" – Mittelkonsole eines italienischen V10-Supersportwagens (markenlos).
+   Alles unter body.thema-lambo, Keyframes lambo-*. Materialien nur aus CSS/SVG: Carbon-Köper (2/2),
+   Alcantara mit Sechseck-Steppung, gebürstetes Titan, eloxiertes Alu, Klarlack-Rot. */
+body.thema-lambo {
+  --lb-rot: #d3121f; --lb-rot-hell: #ff2d3a; --lb-amber: #ffae1a; --lb-gruen: #33d27c;
+  --lb-fg: #f3f3f5; --lb-mute: #8d8f96; --lb-din: "DIN Alternate", "DIN Condensed", "Bahnschrift", "Roboto Condensed", "Arial Narrow", -apple-system, sans-serif;
+  background:
+    radial-gradient(900px 420px at 50% -160px, rgba(211, 18, 31, .26), transparent 70%),
+    radial-gradient(1400px 700px at 50% 115%, #000 10%, transparent 70%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='.07'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E"),
+    #09090b;
+  background-attachment: fixed;
+}
+body.thema-lambo .pcw-kicker { color: var(--lb-rot-hell); font-family: var(--lb-din); letter-spacing: .4em; }
+body.thema-lambo .pcw-kopf h1 { font-family: var(--lb-din); text-transform: uppercase; letter-spacing: .05em; font-weight: 700; }
+body.thema-lambo .pcw-wahl { background: #121214; border-color: #2a2a2f; box-shadow: inset 0 1px 0 rgba(255,255,255,.04); }
+body.thema-lambo .pcw-wahl button { font-family: var(--lb-din); letter-spacing: .08em; text-transform: uppercase; font-size: 12px; }
+body.thema-lambo .pcw-wahl button[aria-pressed="true"] {
+  background: linear-gradient(180deg, #e01826, #9a0914); color: #fff;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 2px 8px rgba(211,18,31,.35);
+}
+body.thema-lambo .pcw-fuss { font-family: var(--lb-din); letter-spacing: .08em; color: var(--lb-mute); opacity: .7; }
+
+/* ---------- Karte: Alcantara mit Sechseck-Steppung und roter Ziernaht ---------- */
+body.thema-lambo .lb-karte {
+  padding: 18px 18px 16px; border-radius: 26px; isolation: isolate; color: var(--lb-fg);
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='.2'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='17.32'%3E%3Cpath d='M0 8.66L5 0H15L20 8.66L15 17.32H5ZM20 8.66H30' fill='none' stroke='%23000' stroke-opacity='.5' stroke-width='1.5'/%3E%3Cpath d='M0 8.66L5 0H15L20 8.66L15 17.32H5ZM20 8.66H30' fill='none' stroke='%23d3121f' stroke-opacity='.42' stroke-width='.6' stroke-dasharray='1.4 1.2'/%3E%3C/svg%3E") 0 0 / 30px 17.32px,
+    radial-gradient(140% 90% at 50% 0%, #26262a 0%, #18181b 55%, #101012 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.07), inset 0 -2px 0 rgba(0,0,0,.6), 0 0 0 1px #000, 0 40px 60px -32px #000, 0 12px 24px -12px rgba(0,0,0,.8);
+}
+body.thema-lambo .lb-karte::before {
+  content: ""; position: absolute; inset: 7px; border-radius: 20px; pointer-events: none; z-index: -1;
+  border: 1.6px dashed rgba(222, 28, 42, .78); filter: drop-shadow(0 1px 0 rgba(0,0,0,.9));
+}
+body.thema-lambo .lb-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+/* ---------- Mittelbildschirm (Sechseck-Rahmen) ---------- */
+body.thema-lambo .lb-tft-rahmen {
+  padding: 2px; position: relative;
+  background: linear-gradient(180deg, #6b6e75, #222327 30%, #141517 70%, #3c3e43);
+  clip-path: polygon(10px 0, calc(100% - 10px) 0, 100% 10px, 100% calc(100% - 24px), calc(100% - 24px) 100%, 24px 100%, 0 calc(100% - 24px), 0 10px);
+}
+body.thema-lambo .lb-tft {
+  position: relative; padding: 13px 16px 9px; overflow: hidden;
+  font-family: var(--lb-din);
+  background:
+    linear-gradient(115deg, rgba(255,255,255,.07) 0 22%, transparent 22.2% 100%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='10.39'%3E%3Cpath d='M0 5.2L3 0H9L12 5.2L9 10.39H3ZM12 5.2H18' fill='none' stroke='%23ffffff' stroke-opacity='.035' stroke-width='.6'/%3E%3C/svg%3E") 0 0 / 18px 10.39px,
+    radial-gradient(120% 120% at 50% 0%, #13161b 0%, #07080a 65%, #030304 100%);
+  box-shadow: inset 0 10px 16px -6px rgba(0,0,0,.95), inset 0 0 0 1px rgba(0,0,0,.9);
+  clip-path: polygon(9px 0, calc(100% - 9px) 0, 100% 9px, 100% calc(100% - 23px), calc(100% - 23px) 100%, 23px 100%, 0 calc(100% - 23px), 0 9px);
+}
+body.thema-lambo .lb-tft-kopf { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 6px 10px; }
+body.thema-lambo .lb-tft-titel { min-width: 0; max-width: 100%; flex: 1 1 auto; }
+body.thema-lambo .lb-name {
+  font-size: 23px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; line-height: 1.05;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-shadow: 0 0 12px rgba(255,255,255,.18);
+}
+body.thema-lambo .lb-info {
+  margin-top: 3px; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--lb-mute);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+body.thema-lambo .lb-status {
+  display: inline-flex; align-items: center; gap: 7px; flex: none; margin-top: 2px;
+  padding: 5px 9px 4px; border: 1px solid #2c2e33; border-radius: 3px; background: rgba(255,255,255,.03);
+  font-size: 11px; letter-spacing: .16em; color: var(--lb-mute); white-space: nowrap;
+}
+body.thema-lambo .lb-status i { width: 7px; height: 7px; border-radius: 50%; background: #4b4d53; flex: none; }
+body.thema-lambo .lb-karte[data-zustand="an"] .lb-status { color: #e9fff1; border-color: rgba(51,210,124,.35); }
+body.thema-lambo .lb-karte[data-zustand="an"] .lb-status i { background: var(--lb-gruen); box-shadow: 0 0 8px var(--lb-gruen); }
+body.thema-lambo .lb-karte[data-zustand="startet"] .lb-status { color: var(--lb-amber); border-color: rgba(255,174,26,.4); }
+body.thema-lambo .lb-karte[data-zustand="startet"] .lb-status i { background: var(--lb-amber); box-shadow: 0 0 8px var(--lb-amber); animation: lambo-blink .5s steps(1) infinite; }
+body.thema-lambo .lb-karte[data-zustand="stoppt"] .lb-status { color: var(--lb-rot-hell); border-color: rgba(255,45,58,.4); }
+body.thema-lambo .lb-karte[data-zustand="stoppt"] .lb-status i { background: var(--lb-rot-hell); box-shadow: 0 0 8px var(--lb-rot-hell); animation: lambo-blink .7s steps(1) infinite; }
+body.thema-lambo .lb-karte[data-zustand="unbekannt"] .lb-status i { background: var(--lb-amber); animation: lambo-blink 1.4s steps(1) infinite; }
+
+/* Balken-Drehzahlmesser mit schrägen Segmenten (0–9000/min, rot ab 8500) */
+body.thema-lambo .lb-tacho {
+  position: relative; height: 17px; margin-top: 13px; overflow: hidden;
+  -webkit-mask: repeating-linear-gradient(100deg, #000 0 5px, transparent 5px 8px);
+          mask: repeating-linear-gradient(100deg, #000 0 5px, transparent 5px 8px);
+}
+body.thema-lambo .lb-tacho-hell {
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, #dfe4ea 0%, #ffffff 50%, #ffd36a 66%, #ffae1a 78%, #ff5a1f 88%, #ff2230 95%);
+}
+body.thema-lambo .lb-tacho-dunkel { position: absolute; inset: 0; background: #1d2025; transform: translateX(0%); }
+body.thema-lambo .lb-tacho-dunkel::after { /* roter Bereich in den unbeleuchteten Segmenten */
+  content: ""; position: absolute; top: 0; bottom: 0; left: 94.4%; width: 100%; background: #3a1418;
+}
+body.thema-lambo .lb-skala {
+  display: flex; justify-content: space-between; margin-top: 4px; font-size: 10px; color: #6f727a;
+  font-variant-numeric: tabular-nums;
+}
+body.thema-lambo .lb-skala span:nth-child(n+9) { color: #c3313c; }
+body.thema-lambo .lb-tft-fuss {
+  display: flex; align-items: center; gap: 10px; margin-top: 6px; min-height: 13px; padding: 0 12px;
+  font-size: 10px; letter-spacing: .12em; color: #5d6068;
+}
+body.thema-lambo .lb-einheit { margin-left: auto; }
+body.thema-lambo .lb-zeit { color: var(--lb-amber); font-variant-numeric: tabular-nums; letter-spacing: .08em; font-size: 11px; }
+body.thema-lambo .lb-karte[data-zustand="stoppt"] .lb-zeit { color: var(--lb-rot-hell); }
+body.thema-lambo .lb-leuchten { display: inline-flex; gap: 6px; align-items: center; }
+body.thema-lambo .lb-leuchten svg { width: 14px; height: 12px; fill: none; stroke: #b9bcc3; stroke-width: 1.1; stroke-linejoin: round; stroke-linecap: round; opacity: .13; }
+body.thema-lambo .lb-dimmer { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; }
+
+/* ---------- Kippschalter-Leiste mit kräftigen Alu-Schutzfinnen ---------- */
+body.thema-lambo .lb-schalter {
+  position: relative; max-width: 430px; margin: 22px auto 0; padding: 9px 3px 6px;
+  display: grid; grid-template-columns: 9px repeat(7, minmax(0, 1fr) 9px); align-items: stretch;
+  border-radius: 9px;
+  background:
+    repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, rgba(0,0,0,.08) 1px 2px, transparent 2px 3px),
+    linear-gradient(180deg, #2c2d32 0%, #1b1c20 40%, #111214 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.14), inset 0 -1px 0 rgba(0,0,0,.7), inset 0 8px 10px -6px rgba(0,0,0,.8), 0 0 0 1px #050506, 0 10px 16px -8px rgba(0,0,0,.95);
+}
+body.thema-lambo .lb-schalt { display: grid; justify-items: center; align-content: start; gap: 3px; min-width: 0; }
+body.thema-lambo .lb-sym {
+  width: 16px; height: 16px; fill: none; stroke: #e3e4e8; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round;
+  filter: drop-shadow(0 0 2px rgba(255,255,255,.15));
+}
+body.thema-lambo .lb-schalt.lb-warn .lb-sym { stroke: #ff3a46; }
+body.thema-lambo .lb-kipp { display: block; width: 32px; height: 40px; overflow: visible; }
+body.thema-lambo .lb-steg { /* Schutzfinne aus satiniertem Alu: ragt über und unter die Leiste, Fase oben, Schatten auf den Nachbarschalter */
+  position: relative; z-index: 1; margin: -9px 0 -7px; border-radius: 4px 4px 3px 3px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.55) 0 1.2px, rgba(255,255,255,.12) 3.5px, transparent 8px calc(100% - 6px), rgba(0,0,0,.6) calc(100% - 2px)),
+    linear-gradient(90deg, #45484d 0 2px, #7d8188 2px 3px, #d9dbdf 3px 5.5px, #8c8f95 5.5px 6.5px, #2b2d31 6.5px 100%);
+  box-shadow: 4px 3px 5px -1px rgba(0,0,0,.85), -2px 1px 3px -1px rgba(0,0,0,.6), inset 0 0 0 .5px rgba(0,0,0,.7);
+}
+body.thema-lambo .lb-steg::after { /* Fase an der Vorderkante */
+  content: ""; position: absolute; left: 2px; right: 2px; bottom: 2px; height: 3px; border-radius: 0 0 2px 2px;
+  background: linear-gradient(180deg, rgba(255,255,255,.4), rgba(0,0,0,.4));
+}
+
+/* ---------- Mitteltunnel aus Carbon: Startmodul + Wählhebel-Insel ---------- */
+body.thema-lambo .lb-tunnel {
+  position: relative; max-width: 430px; margin: 18px auto 0; padding: 40px 0 16px; border-radius: 16px 16px 28px 28px;
+  display: flex; flex-direction: column; align-items: center;
+  background:
+    linear-gradient(162deg, rgba(255,255,255,.14) 0%, rgba(255,255,255,.03) 28%, transparent 46%, rgba(255,255,255,.05) 70%, transparent 82%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Cdefs%3E%3ClinearGradient id='a'%3E%3Cstop offset='0' stop-color='%230e0e10'/%3E%3Cstop offset='.5' stop-color='%23303237'/%3E%3Cstop offset='1' stop-color='%230e0e10'/%3E%3C/linearGradient%3E%3ClinearGradient id='b' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23080809'/%3E%3Cstop offset='.5' stop-color='%231a1b1e'/%3E%3Cstop offset='1' stop-color='%23080809'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='4' height='4' fill='url(%23a)'/%3E%3Crect x='4' width='4' height='4' fill='url(%23a)'/%3E%3Crect x='8' width='4' height='4' fill='url(%23b)'/%3E%3Crect x='12' width='4' height='4' fill='url(%23b)'/%3E%3Crect y='4' width='4' height='4' fill='url(%23b)'/%3E%3Crect x='4' y='4' width='4' height='4' fill='url(%23a)'/%3E%3Crect x='8' y='4' width='4' height='4' fill='url(%23a)'/%3E%3Crect x='12' y='4' width='4' height='4' fill='url(%23b)'/%3E%3Crect y='8' width='4' height='4' fill='url(%23b)'/%3E%3Crect x='4' y='8' width='4' height='4' fill='url(%23b)'/%3E%3Crect x='8' y='8' width='4' height='4' fill='url(%23a)'/%3E%3Crect x='12' y='8' width='4' height='4' fill='url(%23a)'/%3E%3Crect y='12' width='4' height='4' fill='url(%23a)'/%3E%3Crect x='4' y='12' width='4' height='4' fill='url(%23b)'/%3E%3Crect x='8' y='12' width='4' height='4' fill='url(%23b)'/%3E%3Crect x='12' y='12' width='4' height='4' fill='url(%23a)'/%3E%3C/svg%3E") 0 0 / 14px 14px,
+    #111;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.06), inset 0 14px 22px -10px rgba(0,0,0,.9), inset 0 -10px 18px -8px rgba(0,0,0,.8), 0 0 0 1px #000;
+}
+body.thema-lambo .lb-tunnel::after { /* Ambientelicht am Tunnelfuss */
+  content: ""; position: absolute; left: 18%; right: 18%; bottom: 6px; height: 2px; border-radius: 2px;
+  background: linear-gradient(90deg, transparent, #ff2d3a 30% 70%, transparent); opacity: .12;
+  box-shadow: 0 0 12px 2px rgba(255,45,58,.35); transition: opacity .6s;
+}
+body.thema-lambo .lb-karte[data-zustand="an"] .lb-tunnel::after { opacity: .85; }
+body.thema-lambo .lb-karte[data-zustand="startet"] .lb-tunnel::after { opacity: .7; background: linear-gradient(90deg, transparent, var(--lb-amber) 30% 70%, transparent); box-shadow: 0 0 12px 2px rgba(255,174,26,.35); }
+
+/* Bühne: echte Grösse (kein zoom), schräg liegende Platte mit Perspektive von oben */
+body.thema-lambo .lb-buehne { position: relative; flex: none; width: 250px; height: 190px; perspective: 700px; perspective-origin: 50% 0; }
+body.thema-lambo .lb-platte {
+  position: absolute; inset: 0; transform-style: preserve-3d; transform-origin: 50% 100%;
+  transform: rotateX(12deg);
+}
+body.thema-lambo .lb-platte > * { position: absolute; }
+
+/* Einfassung aus gebürstetem Titan (Sechseck-Sprache) mit Status-LED */
+body.thema-lambo .lb-einfassung { left: 0; top: 8px; width: 250px; height: 182px; filter: drop-shadow(0 10px 10px rgba(0,0,0,.85)) drop-shadow(0 0 1px #000); }
+body.thema-lambo .lb-einfassung::before {
+  content: ""; position: absolute; inset: 0;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.3) 0, rgba(255,255,255,0) 5px),
+    linear-gradient(0deg, rgba(0,0,0,.5) 0, rgba(0,0,0,0) 4px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.04) 0 1px, rgba(0,0,0,.08) 1px 2px, transparent 2px 3px),
+    linear-gradient(160deg, #6a6d74 0%, #3a3c41 30%, #26272b 55%, #45474d 80%, #2a2b2f 100%);
+  clip-path: polygon(30px 0, calc(100% - 30px) 0, 100% 30px, 100% calc(100% - 48px), calc(100% - 48px) 100%, 48px 100%, 0 calc(100% - 48px), 0 30px);
+}
+body.thema-lambo .lb-led {
+  position: absolute; left: 117px; bottom: 10px; width: 16px; height: 5px; border-radius: 3px;
+  background: #241315; box-shadow: inset 0 1px 1px rgba(0,0,0,.9), 0 1px 0 rgba(255,255,255,.12);
+}
+body.thema-lambo .lb-karte[data-zustand="an"] .lb-led { background: #46ff95; box-shadow: 0 0 6px #33d27c, 0 0 14px rgba(51,210,124,.55); }
+body.thema-lambo .lb-karte[data-zustand="startet"] .lb-led { background: #ffc34d; box-shadow: 0 0 6px var(--lb-amber), 0 0 14px rgba(255,174,26,.5); animation: lambo-blink .5s steps(1) infinite; }
+body.thema-lambo .lb-karte[data-zustand="stoppt"] .lb-led { background: #ff4b55; box-shadow: 0 0 6px var(--lb-rot-hell), 0 0 14px rgba(255,45,58,.5); animation: lambo-blink .7s steps(1) infinite; }
+body.thema-lambo .lb-karte[data-zustand="unbekannt"] .lb-led { background: #7a5a1c; animation: lambo-blink 1.4s steps(1) infinite; }
+
+body.thema-lambo .lb-mulde {
+  left: 40px; top: 24px; width: 170px; height: 140px; transform: translateZ(.5px);
+  background: radial-gradient(90% 80% at 50% 62%, #141517 0%, #050506 70%);
+  clip-path: polygon(18px 0, calc(100% - 18px) 0, 100% 18px, 100% calc(100% - 34px), calc(100% - 34px) 100%, 34px 100%, 0 calc(100% - 34px), 0 18px);
+}
+body.thema-lambo .lb-mulde::before { /* Lichtkanten der Mulde */
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,.95) 0, transparent 16px), linear-gradient(0deg, rgba(255,255,255,.14) 0, transparent 3px);
+}
+body.thema-lambo .lb-glimmen {
+  position: absolute; inset: 0; opacity: 0; transition: opacity .5s;
+  background: radial-gradient(58% 60% at 50% 48%, transparent 55%, rgba(255,45,58,.55) 72%, transparent 92%);
+}
+body.thema-lambo .lb-offen .lb-glimmen { opacity: .55; }
+body.thema-lambo .lb-offen[data-zustand="aus"] .lb-glimmen,
+body.thema-lambo .lb-offen[data-zustand="unbekannt"] .lb-glimmen { animation: lambo-atmen 2.2s ease-in-out infinite; }
+body.thema-lambo .lb-karte[data-zustand="startet"] .lb-glimmen { opacity: 1; background: radial-gradient(58% 60% at 50% 48%, transparent 55%, rgba(255,174,26,.6) 72%, transparent 92%); animation: lambo-atmen .55s ease-in-out infinite; }
+
+/* Sechseckiger ENGINE-START-Knopf (im DOM nach der Klappe: Tab führt nach dem Öffnen direkt zu ihm) */
+body.thema-lambo .lb-knopf {
+  left: 59px; top: 38px; width: 132px; height: 108px; padding: 0; border: 0; background: none; color: #fff;
+  font: inherit; cursor: pointer; touch-action: pan-y; -webkit-touch-callout: none; outline: none;
+  transform: translateZ(1px); transition: transform .08s ease-out;
+}
+body.thema-lambo .lb-karte:not(.lb-offen) .lb-knopf { pointer-events: none; }
+body.thema-lambo .lb-knopf > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+body.thema-lambo .lb-knopf.lb-gedrueckt { transform: translateZ(1px) scale(.955); }
+body.thema-lambo .lb-knopf.lb-gedrueckt .lb-kappe { filter: brightness(.75); }
+body.thema-lambo .lb-ring-bahn { stroke: rgba(255,255,255,.05); }
+body.thema-lambo .lb-ring { stroke: var(--lb-rot-hell); stroke-dasharray: 100; stroke-dashoffset: 100; filter: drop-shadow(0 0 4px rgba(255,45,58,.9)); }
+body.thema-lambo .lb-karte:not(.lb-haelt) .lb-ring { transition: stroke-dashoffset .35s ease-out; }
+body.thema-lambo .lb-fokus { stroke: transparent; }
+body.thema-lambo .lb-knopf:focus-visible .lb-fokus,
+body.thema-lambo .lb-klappe:focus-visible .lb-fokus { stroke: #fff; filter: drop-shadow(0 0 3px rgba(255,255,255,.7)); }
+body.thema-lambo .lb-knopf-text {
+  position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 4px;
+  font-family: var(--lb-din); line-height: 1; pointer-events: none; padding-bottom: 2px;
+}
+body.thema-lambo .lb-knopf-text small { font-size: 8.5px; letter-spacing: .34em; padding-left: .34em; color: #7d8088; font-weight: 700; }
+body.thema-lambo .lb-knopf-text b {
+  font-size: 25px; letter-spacing: .1em; padding-left: .1em; font-weight: 700; color: #ff2d3a;
+  text-shadow: 0 0 6px rgba(255,45,58,.8), 0 0 18px rgba(255,45,58,.45); transition: color .3s, text-shadow .3s;
+}
+/* geschlossen: START nur schwach hinterleuchtet, durch das Sichtfenster erkennbar */
+body.thema-lambo .lb-karte:not(.lb-offen)[data-zustand="aus"] .lb-knopf-text b,
+body.thema-lambo .lb-karte:not(.lb-offen)[data-zustand="unbekannt"] .lb-knopf-text b { color: #b8202b; text-shadow: 0 0 6px rgba(255,45,58,.35); }
+body.thema-lambo .lb-knopf-text .lb-stop { font-size: 10px; letter-spacing: .3em; color: #6a6d74; transition: color .3s, text-shadow .3s; }
+body.thema-lambo .lb-schloss { display: none; position: absolute; left: calc(50% + 21px); top: 68px; width: 11px; height: 11px; fill: none; stroke: #8d9097; stroke-width: 1.5; }
+body.thema-lambo .lb-karte[data-zustand="an"] .lb-knopf-text b { color: #3e4046; text-shadow: none; }
+body.thema-lambo .lb-karte[data-zustand="an"] .lb-knopf-text .lb-stop { color: #ff2d3a; text-shadow: 0 0 8px rgba(255,45,58,.9); font-size: 12px; }
+body.thema-lambo .lb-karte[data-zustand="startet"] .lb-knopf-text b { color: var(--lb-amber); text-shadow: 0 0 8px rgba(255,174,26,.85), 0 0 18px rgba(255,174,26,.4); animation: lambo-blink .55s steps(1) infinite; }
+body.thema-lambo .lb-karte[data-zustand="stoppt"] .lb-knopf-text b { color: #3e4046; text-shadow: none; }
+body.thema-lambo .lb-karte[data-zustand="stoppt"] .lb-knopf-text .lb-stop { color: #ff2d3a; animation: lambo-blink .7s steps(1) infinite; }
+body.thema-lambo .lb-karte.lb-gesperrt .lb-knopf-text .lb-stop { color: #6a6d74; text-shadow: none; font-size: 10px; }
+body.thema-lambo .lb-karte.lb-gesperrt .lb-schloss { display: block; }
+body.thema-lambo .lb-karte.lb-gesperrt .lb-knopf { cursor: not-allowed; }
+body.thema-lambo .lb-karte.lb-gesperrt .lb-glimmen { opacity: 0; }
+body.thema-lambo .lb-karte[data-zustand="startet"] .lb-knopf,
+body.thema-lambo .lb-karte[data-zustand="stoppt"] .lb-knopf { cursor: progress; }
+
+/* Schatten der aufgestellten Klappe auf die Einfassung hinter dem Scharnier */
+body.thema-lambo .lb-schatten {
+  left: 40px; top: 6px; width: 170px; height: 40px; border-radius: 50%; pointer-events: none;
+  background: radial-gradient(50% 50% at 50% 60%, rgba(0,0,0,.85), rgba(0,0,0,0));
+  transform: translateZ(.8px); opacity: 0; transition: opacity .35s ease;
+}
+body.thema-lambo .lb-offen .lb-schatten { opacity: 1; }
+/* verdecktes Scharnier: schwarz eloxierte Gelenkwelle auf der Klappenachse über die ganze Breite,
+   geschlossen nur als schmale Leiste an der Oberkante sichtbar, geöffnet als Achse am Fuss der Klappe */
+body.thema-lambo .lb-scharnier {
+  left: 50px; top: 26.5px; width: 150px; height: 7px; border-radius: 3.5px; pointer-events: none; transform: translateZ(7.5px);
+  background: linear-gradient(180deg, #050506 0%, #2a2c30 30%, #6d7178 46%, #24262a 68%, #050506 100%);
+  box-shadow: 0 1.5px 2px rgba(0,0,0,.7);
+}
+body.thema-lambo .lb-scharnier::before, body.thema-lambo .lb-scharnier::after { /* Lagerböcke in der Einfassung */
+  content: ""; position: absolute; top: -1.5px; bottom: -1.5px; width: 9px; border-radius: 2.5px;
+  background: linear-gradient(180deg, #121314, #5a5e65 45%, #121314);
+}
+body.thema-lambo .lb-scharnier::before { left: -5px; }
+body.thema-lambo .lb-scharnier::after { right: -5px; }
+
+/* Ring-Klappe: Trefferfläche 10 px grösser als die sichtbare Klappe, Scharnier oben, klappt zum Fahrer hoch */
+body.thema-lambo .lb-klappe {
+  left: 38px; top: 18px; width: 174px; height: 154px; padding: 0; border: 0; background: none; cursor: pointer;
+  outline: none; touch-action: manipulation; -webkit-touch-callout: none; transform-style: preserve-3d; transform-origin: 50% 12px;
+  transform: translateZ(7px) rotateX(0deg);
+  transition: transform .24s cubic-bezier(.55,0,.9,.45);
+}
+@media (hover: hover) {
+  body.thema-lambo .lb-karte:not(.lb-offen) .lb-klappe:hover { transform: translateZ(7px) rotateX(6deg); transition: transform .3s cubic-bezier(.2,1.2,.4,1); }
+}
+body.thema-lambo .lb-karte:not(.lb-offen) .lb-klappe:focus-visible { transform: translateZ(7px) rotateX(5deg); }
+body.thema-lambo .lb-offen .lb-klappe {
+  transform: translateZ(7px) rotateX(100deg);
+  transition: transform .42s cubic-bezier(.3,1.28,.55,1);
+}
+body.thema-lambo .lb-seite, body.thema-lambo .lb-scheibe { position: absolute; left: 10px; top: 10px; width: 154px; height: 134px; pointer-events: none; }
+body.thema-lambo .lb-seite { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+body.thema-lambo .lb-seite svg, body.thema-lambo .lb-scheibe svg { display: block; width: 100%; height: 100%; overflow: visible; }
+body.thema-lambo .lb-vorne { transform: translateZ(0); }
+body.thema-lambo .lb-vorne svg { filter: drop-shadow(0 3px 2px rgba(0,0,0,.8)); }
+body.thema-lambo .lb-s1 { transform: translateZ(-1px); }
+body.thema-lambo .lb-s2 { transform: translateZ(-2px); }
+body.thema-lambo .lb-s3 { transform: translateZ(-3px); }
+body.thema-lambo .lb-s4 { transform: translateZ(-4px); }
+body.thema-lambo .lb-hinten { transform: translateZ(-5px) rotateY(180deg); }
+
+/* Wählhebel-Insel (Dekoration) */
+body.thema-lambo .lb-insel { flex: none; width: 150px; height: 66px; margin-top: 6px; pointer-events: none; }
+body.thema-lambo .lb-insel svg { display: block; width: 100%; height: 100%; overflow: visible; }
+body.thema-lambo .lb-r { font: 700 11px/1 var(--lb-din); fill: #17181b; letter-spacing: .05em; }
+body.thema-lambo .lb-pm { font: 700 10px/1 var(--lb-din); fill: #e6e7ea; }
+
+/* ---------- Hinweiszeile ---------- */
+body.thema-lambo .lb-hinweis {
+  margin-top: 12px; min-height: 1.4em; text-align: center; font-family: var(--lb-din);
+  font-size: 13px; letter-spacing: .06em; color: #a2a4ab;
+}
+body.thema-lambo .lb-hinweis.lb-fehler { color: var(--lb-rot-hell); }
+body.thema-lambo .lb-blitz .lb-hinweis { color: #fff; }
+body.thema-lambo .lb-haelt .lb-hinweis { color: #ff6a73; font-variant-numeric: tabular-nums; }
+
+/* ---------- Zustands-Animationen (Anlauf/Auslauf nur bei frischem Wechsel, Leerlauf-Zittern endet nach ~10 s) ---------- */
+body.thema-lambo .lb-karte[data-zustand="unbekannt"] .lb-tacho-dunkel { animation: lambo-suchen 2.6s ease-in-out infinite; }
+body.thema-lambo .lb-karte[data-zustand="startet"] .lb-tacho-dunkel { transform: translateX(12.5%); animation: lambo-leerlauf .42s ease-in-out 24 alternate; }
+body.thema-lambo .lb-karte.lb-frisch[data-zustand="startet"] .lb-tacho-dunkel { animation: lambo-anlauf 2.4s linear 1, lambo-leerlauf .42s ease-in-out 2.4s 24 alternate; }
+body.thema-lambo .lb-karte[data-zustand="an"] .lb-tacho-dunkel { transform: translateX(12.2%); animation: lambo-leerlauf .42s ease-in-out 24 alternate; }
+body.thema-lambo .lb-karte.lb-frisch[data-zustand="stoppt"] .lb-tacho-dunkel { animation: lambo-auslauf 1.4s cubic-bezier(.5,0,.8,.6) 1; }
+body.thema-lambo .lb-karte.lb-frisch[data-zustand="startet"] .lb-dimmer { animation: lambo-spannung 2.4s linear 1; }
+body.thema-lambo .lb-karte.lb-frisch[data-zustand="startet"] .lb-leuchten svg { animation: lambo-kontrolle 2.4s linear 1; }
+body.thema-lambo .lb-karte[data-zustand="startet"] .lb-l-mot { stroke: var(--lb-amber); }
+body.thema-lambo .lb-karte[data-zustand="startet"] .lb-l-batt,
+body.thema-lambo .lb-karte[data-zustand="startet"] .lb-l-oel { stroke: var(--lb-rot-hell); }
+body.thema-lambo .lb-karte.lb-frisch[data-zustand="startet"] .lb-buehne { animation: lambo-ruetteln 1.5s linear 1; }
+body.thema-lambo .lb-karte[data-zustand="startet"] .lb-warn .lb-sym,
+body.thema-lambo .lb-karte[data-zustand="stoppt"] .lb-warn .lb-sym { animation: lambo-warnblink .8s steps(1) infinite; }
+
+@keyframes lambo-blink { 50% { opacity: .25; } }
+@keyframes lambo-atmen { 0%, 100% { opacity: .35; } 50% { opacity: 1; } }
+@keyframes lambo-warnblink { 0% { stroke: #ff3a46; filter: drop-shadow(0 0 5px #ff3a46) drop-shadow(0 0 2px #ff3a46); } 50% { stroke: #5a1a1e; filter: none; } }
+@keyframes lambo-suchen { 0%, 100% { transform: translateX(0%); } 50% { transform: translateX(9%); } }
+@keyframes lambo-anlauf {
+  0% { transform: translateX(0%); } 5% { transform: translateX(2.8%); } 8% { transform: translateX(1.4%); }
+  12% { transform: translateX(3.2%); } 15% { transform: translateX(1.6%); } 19% { transform: translateX(3%); }
+  22% { transform: translateX(2%); } 24% { transform: translateX(9%); } 34% { transform: translateX(47.8%); }
+  40% { transform: translateX(44%); } 58% { transform: translateX(19%); } 72% { transform: translateX(13.5%); }
+  100% { transform: translateX(12.5%); }
+}
+@keyframes lambo-leerlauf { from { transform: translateX(11.6%); } to { transform: translateX(13.1%); } }
+@keyframes lambo-auslauf { 0% { transform: translateX(12.2%); } 25% { transform: translateX(10%); } 100% { transform: translateX(0%); } }
+@keyframes lambo-spannung { 0% { opacity: 0; } 3% { opacity: .5; } 21% { opacity: .42; } 24% { opacity: 0; } 100% { opacity: 0; } }
+@keyframes lambo-kontrolle { 0%, 3% { opacity: .13; } 4%, 40% { opacity: 1; } 46%, 100% { opacity: .13; } }
+@keyframes lambo-ruetteln {
+  0%, 100% { transform: translate(0, 0); }
+  4% { transform: translate(.6px, -.4px); } 8% { transform: translate(-.6px, .3px); } 12% { transform: translate(.5px, .4px); }
+  16% { transform: translate(-.5px, -.3px); } 20% { transform: translate(.4px, .3px); }
+  25% { transform: translate(0, 1.6px); } 29% { transform: translate(-1.2px, -1px); } 33% { transform: translate(1px, .8px); }
+  38% { transform: translate(-.6px, -.4px); } 45% { transform: translate(.3px, .2px); } 55% { transform: translate(0, 0); }
+}
+
+/* Vorschau ohne Übergänge */
+body.thema-lambo .lb-sofort .lb-klappe, body.thema-lambo .lb-sofort .lb-schatten { transition: none !important; }
+
+/* ---------- Handy ---------- */
+@media (max-width: 420px) {
+  body.thema-lambo .lb-karte { padding: 16px 14px 14px; }
+  body.thema-lambo .lb-tft { padding: 12px 13px 8px; }
+  body.thema-lambo .lb-name { font-size: 21px; }
+  body.thema-lambo .lb-sym { width: 15px; height: 15px; }
+  body.thema-lambo .lb-kipp { width: 28px; height: 35px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.thema-lambo .lb-klappe, body.thema-lambo .lb-offen .lb-klappe,
+  body.thema-lambo .lb-schatten, body.thema-lambo .lb-knopf { transition: none !important; }
+  body.thema-lambo .lb-karte *, body.thema-lambo .lb-karte *::after { animation: none !important; }
+  body.thema-lambo .lb-karte[data-zustand="startet"] .lb-tacho-dunkel { transform: translateX(12.5%); }
+  body.thema-lambo .lb-karte[data-zustand="stoppt"] .lb-tacho-dunkel { transform: translateX(5%); }
+  body.thema-lambo .lb-karte[data-zustand="startet"] .lb-glimmen { opacity: .8; }
+}
